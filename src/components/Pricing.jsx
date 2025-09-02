@@ -10,7 +10,7 @@ const pricingData = [
     description: 'رعاية + وجبات + أنشطة تعليمية',
     icon: '👶',
     color: '#cffafe', // Light Cyan
-    hoverDetails: {
+    details: {
       text: 'يشمل وجبات ومتابعة تعليمية متكاملة.',
       target: '60% من الأهالي',
       chartType: 'pie',
@@ -26,7 +26,7 @@ const pricingData = [
     description: 'تعليم مبكر + أنشطة متنوعة',
     icon: '🏫',
     color: '#dcfce7', // Light Green
-    hoverDetails: {
+    details: {
       text: 'يشمل مناهج معتمدة وأنشطة إثرائية.',
       target: '30% من الأهالي',
       chartType: 'bar',
@@ -41,7 +41,7 @@ const pricingData = [
     description: 'لكل طفل/شهريًا',
     icon: '🚐',
     color: '#ffedd5', // Light Orange
-    hoverDetails: {
+    details: {
       text: 'خدمة نقل آمنة وموثوقة تغطي الأحياء المستهدفة.',
       target: '10% من الأهالي',
       chartType: 'pie',
@@ -71,59 +71,60 @@ const CustomBarChart = ({ data }) => (
         <YAxis type="category" dataKey="name" hide />
         <Tooltip formatter={(value) => `${value}%`} />
         <Bar dataKey="نسبة الاستهداف" barSize={20} fill="#22c55e">
-            <Cell fill="#22c55e" />
+            {/* No need for Cell here if fill is set on Bar */}
         </Bar>
       </BarChart>
     </ResponsiveContainer>
   );
 
 const PricingCard = ({ card }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const cardVariants = {
     initial: { y: 0, boxShadow: '0 4px 15px rgba(0,0,0,0.05)' },
     hover: { y: -8, boxShadow: '0 12px 25px rgba(0,0,0,0.1)' },
   };
 
-  const hoverBoxVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.3, ease: 'easeOut' } },
-    exit: { opacity: 0, y: 20, scale: 0.95, transition: { duration: 0.2, ease: 'easeIn' } },
+  const detailsVariants = {
+    hidden: { opacity: 0, height: 0, marginTop: 0 },
+    visible: { opacity: 1, height: 'auto', marginTop: '1.5rem', transition: { duration: 0.3, ease: 'easeOut' } },
+    exit: { opacity: 0, height: 0, marginTop: 0, transition: { duration: 0.2, ease: 'easeIn' } },
   };
 
   return (
     <motion.div
       className="pricing-card"
       style={{ backgroundColor: card.color }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       variants={cardVariants}
       initial="initial"
       whileHover="hover"
       transition={{ duration: 0.3 }}
+      layout /* Enable layout animations for smooth resizing */
     >
       <div className="card-icon">{card.icon}</div>
       <h3 className="card-title">{card.title}</h3>
       <p className="card-price">{card.price}</p>
       <p className="card-description">{card.description}</p>
-      <button className="card-button">تفاصيل</button>
+      <button className="card-button" onClick={() => setShowDetails(!showDetails)}>
+        {showDetails ? 'إخفاء التفاصيل' : 'عرض التفاصيل'}
+      </button>
 
       <AnimatePresence>
-        {isHovered && (
+        {showDetails && (
           <motion.div
-            className="hover-details-box"
-            variants={hoverBoxVariants}
+            className="card-details-content"
+            variants={detailsVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
           >
-            <p className="hover-text">{card.hoverDetails.text}</p>
-            <p className="hover-target"><strong>الفئة المستهدفة:</strong> {card.hoverDetails.target}</p>
+            <p className="details-text">{card.details.text}</p>
+            <p className="details-target"><strong>الفئة المستهدفة:</strong> {card.details.target}</p>
             <div className="chart-container">
-              {card.hoverDetails.chartType === 'pie' ? (
-                <CustomPieChart data={card.hoverDetails.chartData} />
+              {card.details.chartType === 'pie' ? (
+                <CustomPieChart data={card.details.chartData} />
               ) : (
-                <CustomBarChart data={card.hoverDetails.chartData} />
+                <CustomBarChart data={card.details.chartData} />
               )}
             </div>
           </motion.div>

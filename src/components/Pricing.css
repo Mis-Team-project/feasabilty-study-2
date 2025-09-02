@@ -1,132 +1,196 @@
 .pricing-section {
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+  text-align: center;
   direction: rtl;
-  padding: 60px 20px;
-  background-color: #f8fafc;
 }
 
 .pricing-header {
-  text-align: center;
   margin-bottom: 50px;
 }
 
 .pricing-header h2 {
-  font-size: 2.5rem;
-  color: #1e293b;
+  font-size: 2.8rem;
+  color: #343a40;
+  margin-bottom: 15px;
   font-weight: 700;
 }
 
 .pricing-header p {
   font-size: 1.2rem;
-  color: #475569;
-  max-width: 600px;
-  margin: 10px auto 0;
+  color: #6c757d;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
 .pricing-cards-container {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
-  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .pricing-card {
-  position: relative;
+  background-color: #ffffff;
+  border-radius: 15px;
   padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  width: 340px;
-  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+  min-height: 350px; /* Ensure a minimum height */
+  position: relative; /* For stacking context of details */
+  overflow: hidden; /* Important for containing layout animations */
 }
 
 .card-icon {
-  font-size: 3.5rem; /* 56px */
-  line-height: 1;
-  margin-bottom: 15px;
+  font-size: 3rem;
+  margin-bottom: 20px;
 }
 
 .card-title {
-  font-size: 1.75rem; /* 28px */
+  font-size: 1.8rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #343a40;
   margin-bottom: 10px;
 }
 
 .card-price {
-  font-size: 1.25rem; /* 20px */
-  font-weight: 600;
-  color: #334155;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #007bff;
   margin-bottom: 15px;
 }
 
 .card-description {
-  font-size: 1rem; /* 16px */
-  color: #475569;
-  min-height: 40px; /* To prevent layout shift */
+  font-size: 1.1rem;
+  color: #6c757d;
   margin-bottom: 25px;
+  text-align: center;
+  flex-grow: 1; /* Allow description to take available space */
 }
 
 .card-button {
-  background-color: #334155;
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 10px;
-  padding: 12px 30px;
-  font-size: 1rem;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: auto; /* Push button to the bottom */
+  white-space: nowrap;
 }
 
 .card-button:hover {
-  background-color: #1e293b;
+  background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
-/* Hover Details Box */
-.hover-details-box {
-  position: absolute;
-  bottom: calc(100% + 10px); /* Positioned above the card */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  background-color: white;
-  border-radius: 12px;
-  padding: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  border: 1px solid #e2e8f0;
-  z-index: 10;
-  text-align: right;
+.card-details-content {
+  width: 100%;
+  padding-top: 1.5rem;
+  /* Removed absolute positioning */
+  /* Now acts as part of the normal document flow */
 }
 
-.hover-text {
-  font-size: 0.95rem;
-  color: #334155;
-  margin-bottom: 8px;
-}
-
-.hover-target {
+.details-text {
   font-size: 1rem;
-  color: #1e293b;
-  margin-bottom: 12px;
+  color: #495057;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.details-target {
+  font-size: 1rem;
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
 .chart-container {
   width: 100%;
-  height: 100px; /* Fixed height for consistency */
+  height: 120px; /* Increased height for better chart visibility */
+  margin-top: 15px;
+  /* Ensure charts don't overlap by giving them dedicated space */
 }
 
-/* Recharts Tooltip Style */
-.recharts-tooltip-wrapper {
-  direction: ltr !important;
-}
-.recharts-default-tooltip {
-  border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-  border: 1px solid #e2e8f0 !important;
-  background-color: #f8fafc !important;
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .pricing-cards-container {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  .pricing-header h2 {
+    font-size: 2.5rem;
+  }
+  .card-title {
+    font-size: 1.6rem;
+  }
+  .card-price {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .hover-details-box {
-    display: none; /* Hiding hover on mobile for better UX */
+  .pricing-header h2 {
+    font-size: 2.2rem;
+  }
+  .pricing-header p {
+    font-size: 1.1rem;
+  }
+  .card-icon {
+    font-size: 2.5rem;
+  }
+  .card-title {
+    font-size: 1.4rem;
+  }
+  .card-price {
+    font-size: 1.8rem;
+  }
+  .card-description {
+    font-size: 1rem;
+  }
+  .card-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+  .pricing-card {
+    min-height: 320px; /* Adjust min height for smaller screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .pricing-cards-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .pricing-header {
+    margin-bottom: 30px;
+  }
+  .pricing-header h2 {
+    font-size: 2rem;
+  }
+  .pricing-header p {
+    font-size: 0.95rem;
+  }
+  .pricing-card {
+    padding: 25px;
+    min-height: auto; /* Allow height to adjust dynamically */
+  }
+  .card-title {
+    font-size: 1.5rem;
+  }
+  .card-price {
+    font-size: 2rem;
+  }
+  .chart-container {
+    height: 100px;
   }
 }

@@ -1,0 +1,73 @@
+.cover-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Set the background image directly on the container */
+  background-image: url('../assets/cover-background.png');
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+}
+
+/* Removed .cover-image styles as it's no longer an <img> tag */
+
+.cover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Slightly less opaque overlay */
+  z-index: 0;
+}
+
+.cover-content {
+  position: relative;
+  color: white;
+  text-align: center;
+  direction: rtl;
+  width: 90%;
+  max-width: 900px;
+  padding: 1rem;
+  z-index: 1;
+}
+
+.cover-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.cover-subtitle {
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 1.3;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cover-title {
+    font-size: 2.5rem;
+  }
+  .cover-subtitle {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cover-title {
+    font-size: 2rem;
+  }
+  .cover-subtitle {
+    font-size: 1rem;
+  }
+}

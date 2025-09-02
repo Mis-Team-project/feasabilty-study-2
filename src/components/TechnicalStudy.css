@@ -91,7 +91,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 9999; /* Increased z-index to appear above navbar/sidebar */
 }
 
 .detail-view-container {
@@ -182,6 +182,10 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     width: 90%;
     max-width: 950px;
+    position: relative; /* Ensure z-index works */
+    z-index: 10000; /* Higher than backdrop */
+    max-height: 90vh; /* Ensure modal content doesn't exceed viewport height */
+    overflow-y: auto; /* Enable scrolling if content exceeds max-height */
 }
 
 .suggestion-modal-header, .chart-modal-header {
@@ -237,7 +241,7 @@
 
 .operational-cards-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted for 4 cards */
     gap: 30px;
 }
 
@@ -295,12 +299,58 @@
 
 .chart-container {
     padding: 20px 0;
+    height: 350px; /* Explicit height for the chart container */
+    display: flex; /* Ensure flex context for chart */
+    justify-content: center;
+    align-items: center;
+}
+
+/* NEW Services List Styles */
+.services-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+    text-align: right; /* Align text to the right for RTL */
+}
+
+.service-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background-color: #f0f8ff; /* Light blue background */
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.service-icon {
+    color: #007bff; /* Primary blue color */
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    margin-left: 10px; /* Space between icon and text for RTL */
+}
+
+.service-details {
+    flex-grow: 1;
+}
+
+.service-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.service-description {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
 }
 
 /* Responsive adjustments */
 @media (max-width: 992px) {
     .operational-cards-container {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }
 
@@ -310,5 +360,24 @@
     }
     .categories-container {
         grid-template-columns: 1fr;
+    }
+    .service-item {
+        flex-direction: row; /* Keep horizontal layout for services */
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .op-card-title {
+        font-size: 1.4rem;
+    }
+    .op-card-content {
+        font-size: 0.9rem;
+    }
+    .service-name {
+        font-size: 1rem;
+    }
+    .service-description {
+        font-size: 0.9rem;
     }
 }

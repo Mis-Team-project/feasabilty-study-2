@@ -138,29 +138,38 @@
 
 .salary-button-container {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 50px; /* Increased margin */
+    margin-bottom: 20px;
 }
 
 .salary-button {
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    background: linear-gradient(135deg, #28a745, #218838); /* Green gradient */
     color: white;
     border: none;
-    border-radius: 25px;
-    padding: 12px 30px;
-    font-size: 1.1rem;
-    font-weight: 600;
+    border-radius: 30px; /* More rounded */
+    padding: 18px 45px; /* Bigger button */
+    font-size: 1.25rem; /* Larger font */
+    font-weight: 700; /* Bolder text */
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+    gap: 12px; /* Increased gap */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3); /* Deeper shadow */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 0.5px; /* Spacing between letters */
 }
 
 .salary-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+    transform: translateY(-4px) scale(1.02); /* More prominent hover effect */
+    box-shadow: 0 12px 35px rgba(40, 167, 69, 0.4); /* Enhanced shadow on hover */
 }
+
+.salary-button:active {
+    transform: translateY(-1px) scale(0.98); /* Click effect */
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
 
 .ajir-note-bottom {
     text-align: center;

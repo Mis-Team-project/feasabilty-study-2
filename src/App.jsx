@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { 
+import {
   Book, Target, FileText, Network, BarChart3, Tags, ShieldCheck, Wrench,
   Users, Calculator, MonitorSmartphone, AlertTriangle,
   ClipboardList, TrendingUp, Table, FileBarChart, Map, Menu, X,
@@ -24,6 +24,11 @@ import ModelSummary from './components/ModelSummary';
 import KeyMetrics from './components/KeyMetrics';
 import Footer from './components/Footer';
 import AnimatedTitle from './components/AnimatedTitle';
+import Cover from './components/Cover'; 
+// Import the new content components
+import IntroSectionContent from './components/IntroSectionContent'; 
+import SummarySectionContent from './components/SummarySectionContent';
+
 import './App.css';
 
 const sections = [
@@ -52,50 +57,11 @@ const sections = [
 
 const SectionContent = ({ id }) => {
   if (id === 'intro') {
-    const points = [
-      'توفير بيئة تعليمية آمنة ومتطورة للأطفال من عمر سنتين حتى ست سنوات.',
-      'تمكين المرأة بزيادة فرص مشاركتها في سوق العمل عبر توفير رعاية موثوقة لأطفالها.',
-      'تعزيز الابتكار في التعليم المبكر باستخدام التقنية والتحول الرقمي.'
-    ];
-    return (
-      <div className="custom-content-container">
-        <div className="highlight-box">
-          <p>يدعم هذا المشروع محور تنمية رأس المال البشري في رؤية المملكة 2030 من خلال:</p>
-        </div>
-        <ul className="bullet-points-list">
-          {points.map((point, index) => (
-            <li key={index} className="bullet-point-item">
-              <CheckCircle2 className="bullet-icon" size={22} />
-              <span>{point}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+    return <IntroSectionContent />;
   }
 
   if (id === 'summary') {
-    const summaryData = [
-      { label: 'الأثر التنموي', content: 'يساهم المشروع في رفع جودة التعليم المبكر، وتقليل الفجوة التعليمية بين المراحل العمرية، ودعم مشاركة المرأة في الاقتصاد.' },
-      { label: 'نموذج المشروع', content: 'حضانة + روضة في مبنى مستأجر بمساحة 650–800 م²، تجهيزات تعليمية حديثة، برنامج يومي متكامل.' },
-      { label: 'الميزة التنافسية', content: '- منصة إلكترونية وتطبيق للأهالي.<br>- كادر مؤهل ومعتمد.<br>- برنامج صحي وسلامة شامل.<br>- دعم لوجستي داخلي.' },
-      { label: 'هدف السنة الأولى', content: 'الوصول لـ 150–170 طفل بنسبة إشغال 75% وتحقيق نقطة التعادل بنهاية العام.' },
-    ];
-
-    return (
-      <div className="table-container">
-        <table className="summary-table">
-          <tbody>
-            {summaryData.map((row, index) => (
-              <tr key={index}>
-                <td>{row.label}</td>
-                <td dangerouslySetInnerHTML={{ __html: row.content }}></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+    return <SummarySectionContent />;
   }
 
   // Render correct components based on ID
@@ -207,8 +173,8 @@ function App() {
         {sections.map(({ id, title, icon: Icon, type }) => {
           if(type === 'divider') return null;
           if(id === 'cover') return (
-              <section key={id} id={id} className="page-card cover-section">
-                  {/* Cover content doesn't need a title */}
+              <section key={id} id={id} className="cover-section">
+                  <Cover /> {/* Use the Cover component here */}
               </section>
           )
 

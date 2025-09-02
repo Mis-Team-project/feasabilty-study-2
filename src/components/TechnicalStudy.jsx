@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { MapPin, School, ShieldCheck, Building, Tv, ToyBrick, Video, Smartphone, LayoutGrid, X, Lightbulb, PieChart, BarChart2, LineChart, Book, Users, TrendingUp } from 'lucide-react';
+import { 
+    MapPin, School, ShieldCheck, Building, Tv, ToyBrick, Video, Smartphone, LayoutGrid, X, Lightbulb, PieChart, BarChart2, LineChart, 
+    Book, Users, TrendingUp, BookOpen, Clock, Bus, Apple, ClipboardList // Added new icons
+} from 'lucide-react';
 import { Pie, Bar, ComposedChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Cell, Line } from 'recharts';
 import './TechnicalStudy.css';
 
@@ -48,12 +51,12 @@ const suggestionData = [
     { option: 'مبنى تجاري/تعليمي مستقل', area: '1,000–1,500 م²', rent: '500,000–900,000 ريال', pros: 'مساحات أوسع، مواقف أفضل، مسارات حركة أسلم', cons: 'إيجار أعلى، مواصفات اشتراطية صارمة' },
 ];
 
-// NEW Data for Operational Indicators
+// UPDATED Data for Operational Indicators
 const operationalData = [
     {
-        id: 'ageGroups',
-        title: 'الفئات العمرية',
-        content: 'حضانة (0-3 سنوات) + تمهيدي/روضة (3-6 سنوات)',
+        id: 'categories',
+        title: 'الفئات',
+        content: 'حضانة (0–3 سنوات) + تمهيدي/رياض أطفال (3–6 سنوات) ضمن نفس الموقع.',
         icon: <Book size={32} />,
         buttonText: 'عرض الرسم البياني',
         gradient: 'linear-gradient(135deg, #a8d0e6, #f76e79)',
@@ -65,21 +68,21 @@ const operationalData = [
     },
     {
         id: 'capacity',
-        title: 'الطاقة الاستيعابية',
-        content: '150 طفل (60 حضانة + 90 روضة)',
+        title: 'السعة التصميمية',
+        content: 'قرابة 150 طفل (60 حضانة + 90 رياض).',
         icon: <Users size={32} />,
         buttonText: 'عرض الرسم البياني',
         gradient: 'linear-gradient(135deg, #f5d020, #f53803)',
         chartType: 'bar',
         chartData: [
-            { name: 'حضانة', value: 60 },
-            { name: 'روضة', value: 90 },
+            { name: 'حضانة', value: 60, color: '#f5d020' },
+            { name: 'روضة', value: 90, color: '#f53803' },
         ],
     },
     {
         id: 'occupancy',
         title: 'نسب الإشغال المتوقعة',
-        content: 'العام الأول: 60% | العام الثاني: 80% | العام الثالث: 90%',
+        content: '60% في السنة الأولى، 80% الثانية، 90% الثالثة.',
         icon: <TrendingUp size={32} />,
         buttonText: 'عرض الرسم البياني',
         gradient: 'linear-gradient(135deg, #42e695, #3bb2b8)',
@@ -88,6 +91,22 @@ const operationalData = [
             { name: 'العام 1', value: 60 },
             { name: 'العام 2', value: 80 },
             { name: 'العام 3', value: 90 },
+        ],
+    },
+    {
+        id: 'services',
+        title: 'الخدمات',
+        content: 'برنامج تعليمي ثنائي اللغة، رعاية ممتدة، نقل اختيارية، وجبات خفيفة صحية، تواصل أهالٍ عبر تطبيق.',
+        icon: <ClipboardList size={32} />,
+        buttonText: 'عرض التفاصيل',
+        gradient: 'linear-gradient(135deg, #FFD700, #FFA500)', // Gold to Orange
+        chartType: 'services-list',
+        chartData: [
+            { name: 'تعليم ثنائي اللغة', icon: <BookOpen size={24} />, description: 'منهاج متكامل يدعم اللغتين العربية والإنجليزية.' },
+            { name: 'رعاية ممتدة', icon: <Clock size={24} />, description: 'مرونة في ساعات الرعاية لتناسب احتياجات الأسر العاملة.' },
+            { name: 'نقل اختياري', icon: <Bus size={24} />, description: 'خدمة نقل آمنة ومريحة للأطفال.' },
+            { name: 'وجبات صحية', icon: <Apple size={24} />, description: 'وجبات طازجة ومتوازنة معدة يومياً.' },
+            { name: 'تواصل عبر تطبيق', icon: <Smartphone size={24} />, description: 'منصة رقمية لمتابعة تقدم الطفل والتواصل مع الإدارة.' },
         ],
     },
 ];
@@ -153,9 +172,11 @@ const DetailView = ({ categoryId, onClose, onOpenSuggestionModal }) => {
     );
 };
 
-// NEW Chart Modal Component
+// Chart Modal Component
 const ChartModal = ({ data, onClose }) => {
     const renderChart = () => {
+        if (!data || !data.chartData) return <p>لا توجد بيانات لعرض الرسم البياني.</p>;
+
         switch (data.chartType) {
             case 'pie':
                 return (
@@ -172,10 +193,10 @@ const ChartModal = ({ data, onClose }) => {
             case 'bar':
                  return (
                     <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={data.chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                        <BarChart data={data.chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }} layout="vertical">
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" />
-                            <YAxis />
+                            <XAxis type="number" />
+                            <YAxis type="category" dataKey="name" />
                             <Tooltip />
                             <Legend />
                             <Bar dataKey="value" name="السعة" fill="#f5d020" />
@@ -194,6 +215,20 @@ const ChartModal = ({ data, onClose }) => {
                             <Line type="monotone" dataKey="value" name="نسبة الإشغال" stroke="#42e695" strokeWidth={3} />
                         </ComposedChart>
                     </ResponsiveContainer>
+                );
+            case 'services-list': // NEW case for services list
+                return (
+                    <div className="services-list-container">
+                        {data.chartData.map((service, index) => (
+                            <div key={index} className="service-item">
+                                <div className="service-icon">{service.icon}</div>
+                                <div className="service-details">
+                                    <h4 className="service-name">{service.name}</h4>
+                                    <p className="service-description">{service.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 );
             default: return null;
         }
@@ -292,8 +327,8 @@ const TechnicalStudy = () => {
         {isSuggestionModalOpen && <SuggestionModal onClose={() => setSuggestionModalOpen(false)} />}
       </AnimatePresence>
       
-      <AnimatePresence>
-          {activeChart && <ChartModal data={activeChart} onClose={() => setActiveChart(null)} />}
+      <AnimatePresence mode="wait">
+          {activeChart && <ChartModal key={activeChart.id} data={activeChart} onClose={() => setActiveChart(null)} />}
       </AnimatePresence>
     </div>
   );
