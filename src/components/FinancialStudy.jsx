@@ -129,10 +129,7 @@ const FinancialStudy = () => {
     <div 
         className="financial-study-section"
     >
-        <div className="financial-header">
-            <h2>الدراسة المالية التقديرية</h2>
-            <p>تحليل لأهم المؤشرات المالية للمشروع، بما في ذلك رأس المال المطلوب، والإيرادات والتكاليف السنوية المتوقعة.</p>
-        </div>
+        <p className="financial-intro">تحليل لأهم المؤشرات المالية للمشروع، بما في ذلك رأس المال المطلوب، والإيرادات والتكاليف السنوية المتوقعة.</p>
 
         <div className="stats-grid">
             <StatCard icon={<Wallet size={32} />} title="رأس المال الإجمالي" value={formatCurrency(totalCapital)} color="#3b82f6" description="التكلفة التقديرية لتأسيس وتشغيل المشروع."/>

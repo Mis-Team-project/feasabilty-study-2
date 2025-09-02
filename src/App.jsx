@@ -14,7 +14,7 @@ import TechnicalStudy from './components/TechnicalStudy';
 import HumanStructure from './components/HumanStructure';
 import FinancialStudy from './components/FinancialStudy';
 import WebAppSection from './components/WebAppSection';
-import RiskAnalysis from './components/RiskAnalysis';
+import RisksAndSolutions from './components/RisksAndSolutions';
 import MonthlyResults from './components/MonthlyResults';
 import AnnualSummary from './components/AnnualSummary';
 import ActionPlan from './components/ActionPlan';
@@ -107,7 +107,7 @@ const SectionContent = ({ id }) => {
   if (id === 'hr') { return <HumanStructure />; } 
   if (id === 'financials') { return <FinancialStudy />; }
   if (id === 'app') { return <WebAppSection />; }
-  if (id === 'risks') { return <RiskAnalysis />; } 
+  if (id === 'risks') { return <RisksAndSolutions />; } 
   if (id === 'monthly-results') { return <MonthlyResults />; }
   if (id === 'annual-summary') { return <AnnualSummary />; }
   if (id === 'action-plan') { return <ActionPlan />; }
@@ -177,7 +177,6 @@ function App() {
   };
 
   const contentVariants = { visible: { transition: { staggerChildren: 0.1 } } };
-  const noAnimationSections = ['field-studies-main', 'model-summary', 'indicators'];
 
   return (
     <div className="App">
@@ -207,23 +206,19 @@ function App() {
       <main className="main-content">
         {sections.map(({ id, title, icon: Icon, type }) => {
           if(type === 'divider') return null;
-
-          const isSpecialSection = ['structure', 'monthly-results', 'annual-summary', 'action-plan', 'field-study-locations', 'field-studies-main', 'model-summary', 'indicators', 'hr'].includes(id);
-          const cardClassName = `page-card ${id === 'cover' ? 'cover-section' : ''} ${isSpecialSection ? 'special-section-card' : ''}`;
-
-          if (noAnimationSections.includes(id)) {
-            return (
-              <section key={id} id={id} className={cardClassName}>
-                <SectionContent id={id} />
+          if(id === 'cover') return (
+              <section key={id} id={id} className="page-card cover-section">
+                  {/* Cover content doesn't need a title */}
               </section>
-            )
-          }
-          
+          )
+
+          const cardClassName = `page-card`;
+
           return (
             <AnimatedSection key={id} id={id} className={cardClassName}>
               <motion.div variants={contentVariants}>
-                {!isSpecialSection && <AnimatedTitle title={title} icon={Icon} />}
-                <motion.div className={!isSpecialSection ? "section-content" : ""}>
+                <AnimatedTitle title={title} icon={Icon} />
+                <motion.div className="section-content">
                   <SectionContent id={id} />
                 </motion.div>
               </motion.div>

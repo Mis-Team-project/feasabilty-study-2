@@ -1,75 +1,82 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Lightbulb } from 'lucide-react';
 import './RisksAndSolutions.css';
 
-const riskData = [
+const risksData = [
   {
-    risk: 'ضعف الإقبال في البداية',
-    solution: 'حملات تسويقية مكثفة، عروض تعريفية، بناء شراكات استراتيجية مع المدارس والشركات.',
-    impactLevel: 'عالي',
-    value: 90,
-    color: '#dc3545' // Red
+    name: 'ضعف الإقبال',
+    impactLevel: 'high',
+    impactValue: 90, // Percentage for the progress bar
+    solution: 'عروض تعريفية وشراكات مع المدارس والمؤسسات المحيطة.',
   },
   {
-    risk: 'تغير التشريعات الحكومية',
-    solution: 'متابعة مستمرة للأنظمة والتواصل مع الجهات المختصة لضمان التوافق الكامل.',
-    impactLevel: 'متوسط',
-    value: 60,
-    color: '#ffc107' // Yellow
+    name: 'تغير التشريعات',
+    impactLevel: 'medium',
+    impactValue: 60,
+    solution: 'متابعة مستمرة للأنظمة والتواصل مع الجهات التنظيمية.',
   },
   {
-    risk: 'صعوبة استقطاب الكفاءات',
-    solution: 'تقديم حزمة رواتب ومزايا تنافسية، توفير بيئة عمل جاذبة، والتدريب المستمر.',
-    impactLevel: 'متوسط',
-    value: 55,
-    color: '#ffc107' // Yellow
-  },
-  {
-    risk: 'أعطال تقنية في المنصة',
-    solution: 'اعتماد بنية تحتية سحابية موثوقة، وجود خطة دعم فني وعقود صيانة استباقية.',
-    impactLevel: 'منخفض',
-    value: 30,
-    color: '#28a745' // Green
+    name: 'أعطال تقنية',
+    impactLevel: 'low',
+    impactValue: 30,
+    solution: 'اعتماد بنية احتياطية سحابية وتوفير دعم فني دائم.',
   },
 ];
 
-const RiskItem = ({ item }) => {
-  return (
-    <motion.div 
-      className="risk-item-wrapper"
-      initial={{ opacity: 0, x: 50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.5 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-    >
-      <div className="risk-header">
-        <span className="risk-name">{item.risk}</span>
-        <span className="risk-impact-label" style={{ backgroundColor: item.color }}>{item.impactLevel}</span>
-      </div>
-      <div className="progress-bar-container">
-        <motion.div 
-          className="progress-bar-fill"
-          style={{ '--risk-color': item.color }}
-          initial={{ width: 0 }}
-          whileInView={{ width: `${item.value}%` }}
-          viewport={{ once: true, amount: 0.8 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        />
-      </div>
-      <div className="risk-solution" style={{ borderRight: `5px solid ${item.color}`}}>
-        <strong>الحل المقترح:</strong>
-        <p>{item.solution}</p>
-      </div>
-    </motion.div>
-  );
-};
-
 const RisksAndSolutions = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Trigger animations on component mount
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.1 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+  };
+
   return (
-    <div className="risks-solutions-container">
-      {riskData.map((item, index) => (
-        <RiskItem key={index} item={item} />
-      ))}
+    <div className="risks-solutions-section">
+      <motion.div 
+        className="risks-list"
+        variants={containerVariants}
+        initial="hidden"
+        animate={isLoaded ? "visible" : "hidden"}
+      >
+        {risksData.map((risk, index) => (
+          <motion.div key={index} className="risk-item" variants={itemVariants}>
+            <div className="risk-name">{risk.name}</div>
+            <div className="progress-bar-container">
+              <div
+                className={`progress-bar ${risk.impactLevel}`}
+                style={{ width: isLoaded ? `${risk.impactValue}%` : '0%' }}
+                role="progressbar"
+                aria-valuenow={risk.impactValue}
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-label={`${risk.name} - مستوى التأثير`}
+              >
+                <span className="progress-percentage">{isLoaded ? `${risk.impactValue}%` : ''}</span>
+              </div>
+            </div>
+            <div className="solution-box">
+                <Lightbulb className="solution-icon" size={20} />
+                <p className="solution-text">{risk.solution}</p>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
     </div>
   );
 };

@@ -1,81 +1,134 @@
-.risks-solutions-container {
+/* General styles for the risk analysis section */
+.risks-solutions-section {
   direction: rtl;
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px 35px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.07);
   font-family: 'Cairo', sans-serif;
+  text-align: center;
+  border: 1px solid #f0f0f0;
+}
+
+.risks-solutions-section h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin-bottom: 40px;
+}
+
+.risks-list {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
-  padding: 1rem;
+  gap: 35px; /* Increased gap */
 }
 
-.risk-item-wrapper {
+.risk-item {
   position: relative;
   width: 100%;
-}
-
-.risk-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.75rem;
+  text-align: right;
 }
 
 .risk-name {
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: #343a40;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2d3748;
+  margin-bottom: 12px;
 }
 
-.risk-impact-label {
-  color: #fff;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
+/* Enhanced Progress Bar Styles */
 .progress-bar-container {
   width: 100%;
-  height: 20px;
-  background-color: #e9ecef;
+  background-color: #f0f2f5;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 1rem; /* Added margin to separate from solution */
+  height: 32px;
+  box-shadow: inset 0 3px 5px rgba(0,0,0,0.08);
 }
 
-.progress-bar-fill {
+.progress-bar {
   height: 100%;
-  border-radius: 10px;
-  background: linear-gradient(90deg, var(--risk-color), color-mix(in srgb, var(--risk-color) 70%, #fff));
-  box-shadow: 0 0 10px var(--risk-color), 0 0 5px var(--risk-color);
+  border-radius: 9px 0 0 9px; /* Slightly less rounded */
+  transition: width 1s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
 }
 
-.risk-solution {
-  background-color: #f8f9fa;
+.progress-percentage {
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0 15px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+
+/* Color coding for impact levels */
+.progress-bar.high {
+  background-color: #e53e3e; /* Darker Red */
+}
+
+.progress-bar.medium {
+  background-color: #dd6b20; /* Darker Yellow/Orange */
+}
+
+.progress-bar.low {
+  background-color: #38a169; /* Darker Green */
+}
+
+
+/* Solution Box Styles */
+.solution-box {
+  margin-top: 15px;
+  padding: 12px 18px;
+  background-color: #f7fafc;
   border-radius: 8px;
-  padding: 1rem 1.5rem;
-  border-right: 5px solid; /* color will be set inline */
-  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #e2e8f0;
+  transition: background-color 0.3s ease;
 }
 
-.risk-solution strong {
-  font-weight: 700;
-  color: #343a40;
-  display: block;
-  margin-bottom: 0.5rem;
+.risk-item:hover .solution-box {
+    background-color: #edf2f7;
 }
 
-.risk-solution p {
+.solution-icon {
+  color: #4a5568; /* Indigo */
+  flex-shrink: 0;
+}
+
+.solution-text {
+  font-size: 1rem;
+  color: #4a5568;
   margin: 0;
   line-height: 1.6;
-  color: #495057;
 }
 
-/* Responsive Design */
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .risk-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+  .risks-solutions-section {
+    padding: 20px 25px;
+  }
+
+  .risks-solutions-section h2 {
+    font-size: 1.9rem;
+  }
+
+  .risk-name {
+    font-size: 1.1rem;
+  }
+
+  .progress-bar-container {
+    height: 28px;
   }
 }
