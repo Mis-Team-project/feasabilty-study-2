@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { 
   Book, Target, FileText, Network, BarChart3, Tags, ShieldCheck, Wrench,
-  CalendarClock, Users, Calculator, MonitorSmartphone, AlertTriangle,
-  ClipboardList, TrendingUp, Table, FileBarChart, PieChart, Map, Menu, X,
+  Users, Calculator, MonitorSmartphone, AlertTriangle,
+  ClipboardList, TrendingUp, Table, FileBarChart, Map, Menu, X,
   CheckCircle2, Rss, Route
 } from 'lucide-react';
 import OrgChart from './components/OrgChart';
@@ -11,16 +11,19 @@ import MarketStudy from './components/MarketStudy';
 import Pricing from './components/Pricing';
 import LegalStudy from './components/LegalStudy';
 import TechnicalStudy from './components/TechnicalStudy';
-import DailyProgram from './components/DailyProgram';
 import HumanStructure from './components/HumanStructure';
 import FinancialStudy from './components/FinancialStudy';
 import WebAppSection from './components/WebAppSection';
-import RisksAndSolutions from './components/RisksAndSolutions';
+import RiskAnalysis from './components/RiskAnalysis';
 import MonthlyResults from './components/MonthlyResults';
 import AnnualSummary from './components/AnnualSummary';
 import ActionPlan from './components/ActionPlan';
-import FieldStudy from './components/FieldStudy'; // This is for site selection
-import FieldStudies from './components/FieldStudies'; // This is the new main section
+import FieldStudy from './components/FieldStudy';
+import FieldStudies from './components/FieldStudies';
+import ModelSummary from './components/ModelSummary';
+import KeyMetrics from './components/KeyMetrics';
+import Footer from './components/Footer';
+import AnimatedTitle from './components/AnimatedTitle';
 import './App.css';
 
 const sections = [
@@ -32,7 +35,6 @@ const sections = [
   { id: 'pricing', title: 'التسعير المرجعي', icon: Tags },
   { id: 'legal', title: 'الدراسة القانونية والتنظيمية', icon: ShieldCheck },
   { id: 'technical', title: 'الدراسة الفنية والتشغيلية', icon: Wrench },
-  { id: 'curriculum', title: 'المنهج والبرنامج اليومي', icon: CalendarClock },
   { id: 'hr', title: 'الهيكل البشري', icon: Users },
   { id: 'financials', title: 'الدراسة الاقتصادية والمالية (تقديرية)', icon: Calculator },
   { id: 'app', title: 'إنشاء موقع وتطبيق', icon: MonitorSmartphone },
@@ -41,7 +43,6 @@ const sections = [
   { id: 'annual-summary', title: 'الملخص السنوي (3 سنوات)', icon: FileBarChart },
   { id: 'model-summary', title: 'ملخص النموذج', icon: ClipboardList },
   { id: 'indicators', title: 'أهم المؤشرات', icon: TrendingUp },
-  { id: 'charts', title: 'الرسوم البيانية', icon: PieChart },
   { id: 'divider-1', type: 'divider' },
   { id: 'field-studies-main', title: 'الدراسات الميدانية', icon: Map },
   { id: 'divider-2', type: 'divider' },
@@ -97,21 +98,23 @@ const SectionContent = ({ id }) => {
     );
   }
 
+  // Render correct components based on ID
   if (id === 'structure') { return <OrgChart />; }
   if (id === 'market-study') { return <MarketStudy />; }
   if (id === 'pricing') { return <Pricing />; }
   if (id === 'legal') { return <LegalStudy />; }
   if (id === 'technical') { return <TechnicalStudy />; }
-  if (id === 'curriculum') { return <DailyProgram />; }
-  if (id === 'hr') { return <HumanStructure />; }
+  if (id === 'hr') { return <HumanStructure />; } 
   if (id === 'financials') { return <FinancialStudy />; }
   if (id === 'app') { return <WebAppSection />; }
-  if (id === 'risks') { return <RisksAndSolutions />; }
+  if (id === 'risks') { return <RiskAnalysis />; } 
   if (id === 'monthly-results') { return <MonthlyResults />; }
   if (id === 'annual-summary') { return <AnnualSummary />; }
   if (id === 'action-plan') { return <ActionPlan />; }
   if (id === 'field-study-locations') { return <FieldStudy />; }
   if (id === 'field-studies-main') { return <FieldStudies />; }
+  if (id === 'model-summary') { return <ModelSummary />; }
+  if (id === 'indicators') { return <KeyMetrics />; } 
 
 
   // Default content
@@ -173,8 +176,8 @@ function App() {
     setSidebarOpen(false);
   };
 
-  const staggerVariants = { visible: { transition: { staggerChildren: 0.15 } } };
-  const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
+  const contentVariants = { visible: { transition: { staggerChildren: 0.1 } } };
+  const noAnimationSections = ['field-studies-main', 'model-summary', 'indicators'];
 
   return (
     <div className="App">
@@ -204,20 +207,23 @@ function App() {
       <main className="main-content">
         {sections.map(({ id, title, icon: Icon, type }) => {
           if(type === 'divider') return null;
-          const isSpecialSection = ['structure', 'monthly-results', 'annual-summary', 'action-plan', 'field-study-locations', 'field-studies-main'].includes(id);
+
+          const isSpecialSection = ['structure', 'monthly-results', 'annual-summary', 'action-plan', 'field-study-locations', 'field-studies-main', 'model-summary', 'indicators', 'hr'].includes(id);
           const cardClassName = `page-card ${id === 'cover' ? 'cover-section' : ''} ${isSpecialSection ? 'special-section-card' : ''}`;
+
+          if (noAnimationSections.includes(id)) {
+            return (
+              <section key={id} id={id} className={cardClassName}>
+                <SectionContent id={id} />
+              </section>
+            )
+          }
           
           return (
             <AnimatedSection key={id} id={id} className={cardClassName}>
-              <motion.div variants={staggerVariants}>
-                 {/* Remove the redundant title for special sections */}
-                {!isSpecialSection && (
-                  <motion.h2 variants={itemVariants} className="section-title">
-                    <Icon className="title-icon" />
-                    {title}
-                  </motion.h2>
-                )}
-                <motion.div variants={itemVariants} className={!isSpecialSection ? "section-content" : ""}>
+              <motion.div variants={contentVariants}>
+                {!isSpecialSection && <AnimatedTitle title={title} icon={Icon} />}
+                <motion.div className={!isSpecialSection ? "section-content" : ""}>
                   <SectionContent id={id} />
                 </motion.div>
               </motion.div>
@@ -225,6 +231,7 @@ function App() {
           )
         })}
       </main>
+      <Footer />
     </div>
   );
 }

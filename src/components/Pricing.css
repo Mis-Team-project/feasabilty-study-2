@@ -1,101 +1,132 @@
-.pricing-container {
+.pricing-section {
+  direction: rtl;
+  padding: 60px 20px;
+  background-color: #f8fafc;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.pricing-header h2 {
+  font-size: 2.5rem;
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.pricing-header p {
+  font-size: 1.2rem;
+  color: #475569;
+  max-width: 600px;
+  margin: 10px auto 0;
+}
+
+.pricing-cards-container {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  padding: 3rem 1rem;
+  gap: 30px;
   flex-wrap: wrap;
 }
 
 .pricing-card {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  padding: 2rem;
+  position: relative;
+  padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   text-align: center;
-  transition: all 0.3s ease;
-  direction: rtl;
+  width: 340px;
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
-.pricing-card-content {
-  flex-grow: 1;
+.card-icon {
+  font-size: 3.5rem; /* 56px */
+  line-height: 1;
+  margin-bottom: 15px;
 }
 
-.pricing-card-icon {
-  margin-bottom: 1rem;
-}
-
-.pricing-card-title {
-  font-size: 1.6rem;
+.card-title {
+  font-size: 1.75rem; /* 28px */
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  color: #1e293b;
+  margin-bottom: 10px;
 }
 
-.pricing-card-price {
-  font-size: 1.3rem;
+.card-price {
+  font-size: 1.25rem; /* 20px */
   font-weight: 600;
   color: #334155;
-  margin-bottom: 1rem;
+  margin-bottom: 15px;
 }
 
-.pricing-card-description {
-  font-size: 1rem;
-  color: #64748b;
-  margin-bottom: 1.5rem;
-  min-height: 40px;
+.card-description {
+  font-size: 1rem; /* 16px */
+  color: #475569;
+  min-height: 40px; /* To prevent layout shift */
+  margin-bottom: 25px;
 }
 
-.details-container {
-  position: relative;
-  margin-top: auto; /* Pushes button to the bottom */
-}
-
-.pricing-card-button {
-  width: 100%;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 10px;
+.card-button {
   background-color: #334155;
   color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 30px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.pricing-card-button:hover {
+.card-button:hover {
   background-color: #1e293b;
 }
 
-.pricing-hover-box {
+/* Hover Details Box */
+.hover-details-box {
   position: absolute;
-  bottom: calc(100% + 10px); /* Position above the button */
+  bottom: calc(100% + 10px); /* Positioned above the card */
   left: 50%;
   transform: translateX(-50%);
-  width: 280px;
-  padding: 1.5rem;
+  width: 90%;
   background-color: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  z-index: 20;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  border: 1px solid #e2e8f0;
+  z-index: 10;
   text-align: right;
-  color: #334155;
 }
 
 .hover-text {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #334155;
+  margin-bottom: 8px;
 }
 
 .hover-target {
-  font-size: 0.9rem;
-  color: #475569;
-  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #1e293b;
+  margin-bottom: 12px;
 }
 
-.hover-chart {
+.chart-container {
   width: 100%;
-  height: 100px;
+  height: 100px; /* Fixed height for consistency */
+}
+
+/* Recharts Tooltip Style */
+.recharts-tooltip-wrapper {
+  direction: ltr !important;
+}
+.recharts-default-tooltip {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+  border: 1px solid #e2e8f0 !important;
+  background-color: #f8fafc !important;
+}
+
+@media (max-width: 768px) {
+  .hover-details-box {
+    display: none; /* Hiding hover on mobile for better UX */
+  }
 }

@@ -1,142 +1,155 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Chart from 'react-apexcharts';
-import { BarChart, PieChart, TrendingUp, X } from 'lucide-react';
-import './FinancialStudy.css'; // Styles will be updated for light theme
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
+import { Landmark, TrendingUp, Wallet, Zap, BarChart2 } from 'lucide-react';
+import './FinancialStudy.css';
 
+// --- Data --- 
 const formatCurrency = (value) => new Intl.NumberFormat('ar-SA', { style: 'currency', currency: 'SAR', minimumFractionDigits: 0 }).format(value);
 
-// --- Data ---
-const establishmentCostData = {
-  series: [400000, 200000, 50000, 100000, 200000, 200000],
-  labels: ['تجهيزات المبنى والأثاث', 'تجهيزات تقنية ومنصة', 'رخص ورسوم', 'احتياطي تشغيل', 'أثاث ولوازم تعليمية', 'تسويق وإطلاق'],
-  total: 1150000
-};
+const capitalData = [
+  { name: 'تجهيز وتأثيث', value: 450000, color: '#3b82f6' },
+  { name: 'أنظمة تقنية وأمنية', value: 150000, color: '#8b5cf6' },
+  { name: 'رسوم تأسيس', value: 50000, color: '#ec4899' },
+  { name: 'رأس مال عامل', value: 750000, color: '#f97316' },
+];
 
-const monthlyCostData = {
-  series: [150000, 30000, 20000, 10000],
-  labels: ['رواتب', 'إيجار', 'مصاريف تشغيلية', 'تسويق وإعلانات'],
-  total: 210000
-};
+const totalCapital = capitalData.reduce((sum, item) => sum + item.value, 0);
 
-const revenueData = {
-    series: Array.from({ length: 10 }, (_, i) => (i + 1) * 25 * 1700),
-    categories: Array.from({ length: 10 }, (_, i) => (i + 1) * 25),
-    breakEvenPoint: 150,
-    avgRevenuePerChild: 1700,
-};
-
-// --- Chart Options (Updated for Light Theme) --- //
-const getChartOptions = (labels) => ({
-    chart: { type: 'donut', fontFamily: 'var(--font-family)', background: 'transparent' },
-    labels: labels,
-    legend: { show: true, position: 'bottom', fontFamily: 'var(--font-family)', labels: { colors: 'var(--text-color)'} },
-    responsive: [{ breakpoint: 480, options: { chart: { width: '100%' } } }],
-    colors: ['#5DADE2', '#58D68D', '#F5B041', '#EC7063', '#AF7AC5', '#48C9B0'],
-    tooltip: { theme: 'light', style: { fontSize: '14px', fontFamily: 'var(--font-family)' } },
-    dataLabels: { enabled: true, formatter: (val) => `${Math.round(val)}%` }
-});
-
-const breakEvenChartOptions = {
-    chart: { type: 'line', fontFamily: 'var(--font-family)', background: 'transparent', zoom: { enabled: false }, toolbar: { show: false } },
-    xaxis: { 
-        title: { text: 'عدد الأطفال', style: { fontFamily: 'var(--font-family)', color: 'var(--text-color)' } }, 
-        categories: revenueData.categories, 
-        labels: { style: { colors: 'var(--text-color)' } }
+const annualFlowData = [
+    {
+        name: 'السنة الأولى (تقديري)',
+        إيرادات: 2930000,
+        تكاليف: 2550000, 
+        ربح: 380000,
     },
-    yaxis: { 
-        title: { text: 'الإيرادات / التكاليف (ريال)', style: { fontFamily: 'var(--font-family)', color: 'var(--text-color)' } },
-        labels: { formatter: (val) => val.toLocaleString(), style: { colors: 'var(--text-color)' } }
-    },
-    stroke: { curve: 'smooth', width: [3, 3] },
-    colors: ['#27ae60', '#c0392b'],
-    legend: { position: 'top', fontFamily: 'var(--font-family)', labels: { colors: 'var(--text-color)' } },
-    tooltip: { theme: 'light', style: { fontSize: '14px', fontFamily: 'var(--font-family)' } },
-    markers: { size: 5 },
-    grid: { borderColor: 'var(--border-color)' },
-    annotations: {
-        points: [{
-            x: revenueData.breakEvenPoint,
-            y: revenueData.breakEvenPoint * revenueData.avgRevenuePerChild,
-            marker: { size: 8, fillColor: '#fff', strokeColor: '#f39c12', radius: 2 },
-            label: { borderColor: '#f39c12', style: { color: '#fff', background: '#f39c12' }, text: 'نقطة التعادل' }
-        }]
-    }
-};
+];
 
-const FinancialStudy = () => {
-  const [activeChart, setActiveChart] = useState(null);
+const netProfit = annualFlowData[0].ربح;
 
-  const cards = [
-    { id: 'establishment', title: 'تكاليف التأسيس', icon: <BarChart/>, data: establishmentCostData, type: 'donut' },
-    { id: 'monthly', title: 'التشغيل الشهري', icon: <PieChart/>, data: monthlyCostData, type: 'donut' },
-    { id: 'revenue', title: 'الإيرادات ونقطة التعادل', icon: <TrendingUp/>, data: revenueData, type: 'line' },
-  ];
+// --- Components --- 
 
-  const handleCardClick = (chartId) => {
-    setActiveChart(chartId === activeChart ? null : chartId);
-  };
-  
-  const renderChart = () => {
-    const chartInfo = cards.find(c => c.id === activeChart);
-    if (!chartInfo) return null;
+const StatCard = ({ icon, title, value, color, description }) => (
+    <div 
+        className="stat-card" 
+        style={{ borderBottom: `4px solid ${color}` }}
+    >
+        <div className="stat-card-header">
+            {icon}
+            <span className="stat-card-title">{title}</span>
+        </div>
+        <p className="stat-card-value">{value}</p>
+        {description && <p className="stat-card-description">{description}</p>}
+    </div>
+);
 
-    let chartComponent;
-    if (chartInfo.type === 'donut') {
-      chartComponent = <Chart options={getChartOptions(chartInfo.data.labels)} series={chartInfo.data.series} type="donut" width="100%" />;
-    } else {
-      const costSeries = Array.from({ length: 10 }, (_, i) => ((i + 1) * 25) * (monthlyCostData.total / 150));
-      chartComponent = <Chart options={breakEvenChartOptions} series={[{ name: 'الإيرادات', data: chartInfo.data.series }, { name: 'التكاليف', data: costSeries }]} type="line" height={350} />;
-    }
+const CapitalPieChart = () => {
+    const [activeIndex, setActiveIndex] = useState(null);
+
+    const onPieEnter = (_, index) => setActiveIndex(index);
+    const onPieLeave = () => setActiveIndex(null);
 
     return (
-        <motion.div className="chart-modal-backdrop" onClick={() => setActiveChart(null)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <motion.div className="chart-modal-content" onClick={(e) => e.stopPropagation()} initial={{ scale: 0.8 }} animate={{ scale: 1 }} exit={{ scale: 0.8 }}>
-                <div className="chart-modal-header">
-                    <h3>{chartInfo.title}</h3>
-                    <button onClick={() => setActiveChart(null)} className="close-chart-btn"><X/></button>
-                </div>
-                <div className="chart-container">{chartComponent}</div>
-            </motion.div>
-        </motion.div>
+        <div className="financial-chart-wrapper pie-chart-section">
+            <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                    <Pie
+                        activeIndex={activeIndex}
+                        activeShape={ActiveShape}
+                        data={capitalData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={70}
+                        outerRadius={100}
+                        dataKey="value"
+                        onMouseEnter={onPieEnter}
+                        onMouseLeave={onPieLeave}
+                    >
+                        {capitalData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
+                    </Pie>
+                    <Tooltip content={<CustomTooltip />} />
+                </PieChart>
+            </ResponsiveContainer>
+        </div>
     );
-  }
+};
 
+const ActiveShape = (props) => {
+    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload } = props;
+    return (
+      <g>
+        <text x={cx} y={cy - 10} dy={8} textAnchor="middle" fill="#1e293b" fontSize={18} fontWeight="bold">{payload.name}</text>
+        <text x={cx} y={cy + 15} dy={8} textAnchor="middle" fill="#475569" fontSize={16}>{formatCurrency(payload.value)}</text>
+        <sector
+          cx={cx}
+          cy={cy}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius + 6}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={fill}
+          style={{ filter: `drop-shadow(0 4px 8px ${fill}B3)` }}
+        />
+      </g>
+    );
+  };
+
+const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          <p className="label">{`${payload[0].name} : ${formatCurrency(payload[0].value)}`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+const AnnualFlowBarChart = () => (
+    <div className="financial-chart-wrapper">
+        <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={annualFlowData} layout="vertical" margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+                <XAxis type="number" tickFormatter={(val) => `${val/1000000}م`} />
+                <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 14 }}/>
+                <Tooltip formatter={(value) => formatCurrency(value)} cursor={{ fill: '#f1f5f9' }}/>
+                <Legend />
+                <Bar dataKey="إيرادات" fill="#22c55e" name="الإيرادات" barSize={35}>
+                    <LabelList dataKey="إيرادات" position="insideRight" formatter={(value) => formatCurrency(value)} style={{ fill: 'white' }}/>
+                </Bar>
+                <Bar dataKey="تكاليف" fill="#ef4444" name="التكاليف" barSize={35}>
+                    <LabelList dataKey="تكاليف" position="insideRight" formatter={(value) => formatCurrency(value)} style={{ fill: 'white' }}/>
+                </Bar>
+            </BarChart>
+        </ResponsiveContainer>
+    </div>
+);
+
+const FinancialStudy = () => {
   return (
-    <div className="financial-study-container">
-        <div className="financial-cards-grid">
-            {cards.map(card => (
-                <div key={card.id} className={`financial-details-card card-${card.id}`}>
-                    <div className="card-header">
-                        <div className="card-icon">{card.icon}</div>
-                        <h4>{card.title}</h4>
-                    </div>
-                    <ul className="details-list">
-                        {card.id !== 'revenue' ? (
-                            card.data.labels.map((label, index) => (
-                                <li key={index}><span>{label}</span><span className="amount">{formatCurrency(card.data.series[index])}</span></li>
-                            ))
-                        ) : (
-                            <>
-                                <li><span>متوسط إيراد الطفل</span><span className="amount">{formatCurrency(card.data.avgRevenuePerChild)}</span></li>
-                                <li><span>نقطة التعادل</span><span className="amount">{card.data.breakEvenPoint} طفل</span></li>
-                                <li><span>عند نقطة التعادل</span><span className="amount">{formatCurrency(revenueData.breakEvenPoint * revenueData.avgRevenuePerChild)}</span></li>
-                            </>
-                        )}
-                    </ul>
-                    <div className="card-footer">
-                        {card.data.total && <div className="total-section"><span>الإجمالي</span><span className="total-amount">{formatCurrency(card.data.total)}</span></div>}
-                        <motion.button className="view-chart-btn" onClick={() => handleCardClick(card.id)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                            عرض الرسم البياني
-                        </motion.button>
-                    </div>
-                </div>
-            ))}
+    <div 
+        className="financial-study-section"
+    >
+        <div className="financial-header">
+            <h2>الدراسة المالية التقديرية</h2>
+            <p>تحليل لأهم المؤشرات المالية للمشروع، بما في ذلك رأس المال المطلوب، والإيرادات والتكاليف السنوية المتوقعة.</p>
         </div>
 
-        <AnimatePresence>
-            {activeChart && renderChart()}
-        </AnimatePresence>
+        <div className="stats-grid">
+            <StatCard icon={<Wallet size={32} />} title="رأس المال الإجمالي" value={formatCurrency(totalCapital)} color="#3b82f6" description="التكلفة التقديرية لتأسيس وتشغيل المشروع."/>
+            <StatCard icon={<TrendingUp size={32} />} title="صافي الربح المتوقع" value={formatCurrency(netProfit)} color="#22c55e" description="ربح السنة الأولى بعد طرح التكاليف."/>
+            <StatCard icon={<Zap size={32} />} title="نقطة التعادل" value="10-12 شهر" color="#f97316" description="المدة المتوقعة للوصول إلى نقطة التعادل."/>
+        </div>
+
+        <div className="financial-block">
+            <h3 className="block-title"><Landmark size={24} /> توزيع رأس المال المطلوب</h3>
+            <CapitalPieChart />
+        </div>
+
+        <div className="financial-block">
+            <h3 className="block-title"><BarChart2 size={24} /> الإيرادات والتكاليف السنوية</h3>
+            <AnnualFlowBarChart />
+        </div>
+
     </div>
   );
 };

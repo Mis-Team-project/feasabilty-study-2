@@ -1,152 +1,184 @@
+/* HumanStructure.css */
+
 .human-structure-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  direction: rtl;
-  font-family: 'Cairo', sans-serif;
-  gap: 2rem;
-  width: 100%;
+    padding: 50px 20px;
+    background-color: #f8f9fa;
+    direction: rtl; /* Right-to-left layout */
+    text-align: right;
+    overflow: hidden;
+}
+
+.human-structure-header h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.human-structure-header p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 40px;
 }
 
 .level {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  position: relative;
+    margin-bottom: 50px;
+    position: relative;
 }
 
-.level-line {
-  width: 2px;
-  background-color: #e0e0e0;
-  height: 2rem;
-  position: absolute;
-  top: -2rem;
-  left: 50%;
-  transform: translateX(-50%);
+.level::before {
+    content: '';
+    position: absolute;
+    right: 35px; /* Adjust based on icon size and padding */
+    top: 50px;
+    bottom: -20px;
+    width: 2px;
+    background-color: #dee2e6;
+    z-index: 0;
 }
 
-.level:first-child .level-line {
-  display: none;
+.level:last-child::before {
+    display: none;
 }
 
-.roles-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-  position: relative;
-  width: 100%;
+.level-title {
+    font-size: 1.6rem;
+    color: #0056b3;
+    margin-bottom: 25px;
+    background-color: #f8f9fa;
+    padding-right: 20px;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+
+.level-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-right: 50px; /* Indent roles from the main line */
+    position: relative;
 }
 
 .role-group-wrapper {
-  position: relative;
+    position: relative;
 }
 
 .role-group {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1rem;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border-right: 4px solid var(--role-color, #bdc3c7);
-  border-left: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-width: 300px;
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-right: 5px solid var(--role-color, #ccc);
+    cursor: pointer;
+    min-width: 220px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column; /* Ensure content stacks vertically */
 }
 
-.role-group:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+.role-title {
+    font-size: 1.25rem;
+    color: #333;
+    margin: 0 0 15px 0;
+    font-weight: 600;
 }
 
-.role-identity {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  border-left: 1px solid #e0e0e0;
-  padding-left: 1rem;
-  color: var(--role-color);
-}
-
-.role-main-icon {
-  font-size: 1.5rem;
-}
-
-.role-title-text {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0;
-  white-space: nowrap;
-}
-
-.employee-icon-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+.employee-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .employee-icon {
-  font-size: 1.8rem;
-  color: #34495e;
-  padding: 0.4rem;
-  border-radius: 8px;
-  background-color: #ecf0f1;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--role-color, #ccc);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
 }
 
-/* Tooltip Styles */
-.role-group-wrapper:hover .role-tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(-15px);
+.fixed-tooltip {
+    position: fixed;
+    background-color: #343a40;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-width: 300px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    pointer-events: none; /* Important for preventing flicker */
 }
 
-.role-tooltip {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-10px);
-  background-color: #34495e;
-  color: white;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, transform 0.3s;
-  pointer-events: none;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+.fixed-tooltip p {
+    margin: 4px 0;
 }
 
-.role-tooltip p {
-  margin: 0.25rem 0;
+.fixed-tooltip strong {
+    color: #f8f9fa;
 }
 
-.role-tooltip strong {
-  color: var(--role-color, #ecf0f1);
+.role-salary-info {
+    border-top: 1px solid #eee;
+    font-size: 1rem;
+    color: #555;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .roles-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .role-group {
-    flex-direction: column;
-    align-items: flex-start;
-    min-width: 0;
-  }
-  .role-identity {
-    border-left: none;
-    padding-left: 0;
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
-    border-bottom: 1px solid #e0e0e0;
-    width: 100%;
-  }
+.role-salary-info strong {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.salary-button-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.salary-button {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+}
+
+.salary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+}
+
+.ajir-note-bottom {
+    text-align: center;
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ajir-note-bottom p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #495057;
+}
+
+.ajir-note-bottom strong {
+    color: #212529;
 }

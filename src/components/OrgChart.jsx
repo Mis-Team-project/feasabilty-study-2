@@ -1,141 +1,133 @@
-import React, { useCallback, useLayoutEffect } from 'react';
-import ReactFlow, {
-  useNodesState,
-  useEdgesState,
-  addEdge,
-  useReactFlow,
-  ReactFlowProvider,
-  MarkerType,
-} from 'reactflow';
-import dagre from '@dagrejs/dagre';
-import 'reactflow/dist/style.css';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+    Briefcase, Wrench, Sparkles, Truck, Calculator, Wallet,
+    Clipboard, Book, Heart, Shield, ChevronDown 
+} from 'lucide-react';
 import './OrgChart.css';
 
-import {
-  Briefcase, Wrench, Sparkles, Truck, Calculator, Wallet,
-  Clipboard, Book, Heart, Shield
-} from 'lucide-react';
-
-const iconMapping = {
-  Briefcase, Wrench, Sparkles, Truck, Calculator, Wallet,
-  Clipboard, Book, Heart, Shield
+const orgData = {
+  topLevel: {
+    name: 'مدير عام',
+    count: 1,
+    icon: Briefcase,
+    tasks: 'الإشراف العام وتحديد التوجه الاستراتيجي للمركز.',
+  },
+  departments: [
+    {
+      title: 'الإدارة المساندة',
+      color: '#8D99AE',
+      icon: Wrench,
+      roles: [
+        { name: 'دعم فني', count: 1, icon: Wrench, tasks: 'صيانة الأنظمة التقنية والتجهيزات.' },
+        { name: 'نظافة', count: 2, icon: Sparkles, tasks: 'الحفاظ على نظافة وصيانة مرافق المركز.' },
+        { name: 'سائقين للخدمات اللوجستية', count: 2, icon: Truck, tasks: 'توفير النقل الآمن والخدمات اللوجستية.' },
+      ],
+    },
+    {
+      title: 'الإدارة المالية',
+      color: '#3498db',
+      icon: Calculator,
+      roles: [
+        { name: 'محاسب', count: 1, icon: Calculator, tasks: 'إدارة الشؤون المالية، المحاسبة، والميزانيات.' },
+        { name: 'أمين صندوق', count: 1, icon: Wallet, tasks: 'مسؤول عن حفظ وإدارة النقدية والصندوق.' },
+      ],
+    },
+    {
+      title: 'إدارة الحضانة والروضة',
+      color: '#2ecc71',
+      icon: Heart,
+      roles: [
+        { name: 'منسقة', count: 1, icon: Clipboard, tasks: 'تنسيق العمليات اليومية والبرامج التعليمية.' },
+        { name: 'معلمات', count: 6, icon: Book, tasks: 'تطبيق المناهج التعليمية وتطوير قدرات الأطفال.' },
+        { name: 'مربيات', count: 4, icon: Heart, tasks: 'توفير الرعاية اليومية والأمان للأطفال.' },
+        { name: 'موظفة صحة وسلامة', count: 1, icon: Shield, tasks: 'ضمان بيئة صحية وآمنة وتطبيق معايير السلامة.' },
+      ],
+    },
+  ]
 };
 
-const CustomNode = ({ data }) => {
-  const Icon = iconMapping[data.icon];
-  return (
-    <div className={`custom-node-card department-${data.department}`}>
-      <div className="node-content">
-        {Icon && <Icon className="node-icon" size={20} />}
-        <span>{data.label}</span>
-      </div>
-    </div>
-  );
+const RoleCard = ({ role }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    return (
+        <motion.div 
+            className="role-card" 
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            // The `layout` prop was removed here to prevent text scaling issues.
+        >
+            <role.icon className="role-icon" size={24} />
+            <span className="role-name">{role.name} ({role.count})</span>
+            <AnimatePresence>
+                {isHovered && (
+                    <motion.div
+                        className="role-tooltip"
+                        initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        <p>{role.tasks}</p>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.div>
+    );
 };
 
-const nodeTypes = { custom: CustomNode };
+const Department = ({ dept }) => {
+    const [isOpen, setIsOpen] = useState(true);
 
-const initialNodes = [
-  { id: '1', type: 'custom', data: { label: 'الإدارة العليا (مدير عام)', icon: 'Briefcase', department: 'management' }, position: { x: 0, y: 0 } },
-  { id: '2', type: 'custom', data: { label: 'الإدارة المساندة', department: 'support' }, position: { x: 0, y: 0 } },
-  { id: '3', type: 'custom', data: { label: 'الإدارة المالية', department: 'finance' }, position: { x: 0, y: 0 } },
-  { id: '4', type: 'custom', data: { label: 'إدارة الحضانة والروضة', department: 'childcare' }, position: { x: 0, y: 0 } },
-  { id: '2-1', type: 'custom', data: { label: 'دعم فني', icon: 'Wrench', department: 'support' }, position: { x: 0, y: 0 } },
-  { id: '2-2', type: 'custom', data: { label: 'نظافة', icon: 'Sparkles', department: 'support' }, position: { x: 0, y: 0 } },
-  { id: '2-3', type: 'custom', data: { label: 'سائقين للخدمات اللوجستية', icon: 'Truck', department: 'support' }, position: { x: 0, y: 0 } },
-  { id: '3-1', type: 'custom', data: { label: 'محاسب', icon: 'Calculator', department: 'finance' }, position: { x: 0, y: 0 } },
-  { id: '3-2', type: 'custom', data: { label: 'أمين صندوق', icon: 'Wallet', department: 'finance' }, position: { x: 0, y: 0 } },
-  { id: '4-1', type: 'custom', data: { label: 'منسقة', icon: 'Clipboard', department: 'childcare' }, position: { x: 0, y: 0 } },
-  { id: '4-2', type: 'custom', data: { label: 'معلمات', icon: 'Book', department: 'childcare' }, position: { x: 0, y: 0 } },
-  { id: '4-3', type: 'custom', data: { label: 'مربيات', icon: 'Heart', department: 'childcare' }, position: { x: 0, y: 0 } },
-  { id: '4-4', type: 'custom', data: { label: 'موظفة صحة وسلامة', icon: 'Shield', department: 'childcare' }, position: { x: 0, y: 0 } },
-];
-
-const initialEdges = [
-    { id: 'e1-2', source: '1', target: '2', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    { id: 'e1-3', source: '1', target: '3', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    { id: 'e1-4', source: '1', target: '4', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    { id: 'e2-21', source: '2', target: '2-1', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    { id: 'e2-22', source: '2', target: '2-2', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    { id: 'e2-23', source: '2', target: '2-3', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    { id: 'e3-31', source: '3', target: '3-1', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    { id: 'e3-32', source: '3', target: '3-2', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    { id: 'e4-41', source: '4', target: '4-1', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    { id: 'e4-42', source: '4', target: '4-2', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    { id: 'e4-43', source: '4', target: '4-3', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    { id: 'e4-44', source: '4', target: '4-4', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-];
-
-const dagreGraph = new dagre.graphlib.Graph();
-dagreGraph.setDefaultEdgeLabel(() => ({}));
-
-const nodeWidth = 200;
-const nodeHeight = 60;
-
-const getLayoutedElements = (nodes, edges, direction = 'TB') => {
-  dagreGraph.setGraph({ rankdir: direction, ranksep: 70, nodesep: 25 });
-
-  nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
-  });
-
-  edges.forEach((edge) => {
-    dagreGraph.setEdge(edge.source, edge.target);
-  });
-
-  dagre.layout(dagreGraph);
-
-  nodes.forEach((node) => {
-    const nodeWithPosition = dagreGraph.node(node.id);
-    node.targetPosition = direction === 'TB' ? 'top' : 'left';
-    node.sourcePosition = direction === 'TB' ? 'bottom' : 'right';
-    node.position = {
-      x: nodeWithPosition.x - nodeWidth / 2,
-      y: nodeWithPosition.y - nodeHeight / 2,
-    };
-    return node;
-  });
-
-  return { nodes, edges };
-};
-
-const LayoutFlow = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const { fitView } = useReactFlow();
-
-  const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
-
-  useLayoutEffect(() => {
-    const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(initialNodes, initialEdges);
-    setNodes(layoutedNodes);
-    setEdges(layoutedEdges);
-    
-    window.requestAnimationFrame(() => {
-        fitView();
-    });
-  }, [fitView, setNodes, setEdges]);
-
-  return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      nodeTypes={nodeTypes}
-      proOptions={{ hideAttribution: true }}
-      fitView
-    />
-  );
-};
+    return (
+        <motion.div className="department-node" layout>
+            <motion.div 
+                className="department-header"
+                onClick={() => setIsOpen(!isOpen)} 
+                style={{ '--dept-color': dept.color }}
+                layout
+            >
+                <dept.icon size={22} />
+                <h3 className="department-title">{dept.title}</h3>
+                <motion.div animate={{ rotate: isOpen ? 0 : -90 }}>
+                    <ChevronDown size={20} />
+                </motion.div>
+            </motion.div>
+            <AnimatePresence>
+            {isOpen && (
+                <motion.div
+                    className="department-roles"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    // The `layout` prop was removed here as well.
+                >
+                    {dept.roles.map(role => <RoleCard key={role.name} role={role} />)}
+                </motion.div>
+            )}
+            </AnimatePresence>
+        </motion.div>
+    )
+}
 
 const OrgChart = () => {
+  const { topLevel, departments } = orgData;
+
   return (
-    <div className="org-chart-container" style={{ direction: 'ltr' }}>
-      <ReactFlowProvider>
-        <LayoutFlow />
-      </ReactFlowProvider>
+    <div className="org-chart-container">
+      <motion.div className="top-level-node" layout>
+          <div className="top-level-card">
+            <topLevel.icon className="role-icon" size={28} />
+            <span className="role-name">{topLevel.name} ({topLevel.count})</span>
+          </div>
+      </motion.div>
+
+      <div className="departments-container">
+        {departments.map(dept => (
+            <Department key={dept.title} dept={dept} />
+        ))}
+      </div>
     </div>
   );
 };

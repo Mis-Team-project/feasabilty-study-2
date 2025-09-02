@@ -1,92 +1,197 @@
+/* src/components/OrgChart.css */
+
 .org-chart-container {
   width: 100%;
-  height: 600px; /* Increased height */
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2.5rem 1rem;
+  direction: rtl;
+  background-color: #f8f9fa; /* Light gray background */
+  border-radius: 16px;
+}
+
+/* === Top Level (الإدارة العليا) === */
+.top-level-node {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 2rem; /* Space for the connecting line */
+}
+
+.top-level-node::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 2rem;
+  width: 2px;
+  background-color: #ced4da;
+}
+
+.top-level-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
   border-radius: 12px;
-  overflow: hidden; /* Hide overflow initially */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #212529;
+  border-top: 5px solid #007bff; /* Highlight style */
 }
 
-.react-flow__pane {
-  cursor: grab;
+/* === Departments Container === */
+.departments-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  position: relative;
+  padding-top: 2rem;
 }
 
-.react-flow__node {
-  border-radius: 10px;
-  color: var(--text-color);
-  font-weight: 500;
-  width: 200px; /* Fixed width */
-  font-size: 14px;
-  text-align: center;
-  border: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.3s, transform 0.3s;
+/* Horizontal line connecting departments */
+.departments-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background-color: #ced4da;
 }
 
-.react-flow__node:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
-  transform: translateY(-3px);
+/* === Department Node === */
+.department-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
 }
 
-.react-flow__edgepath {
-  stroke-width: 2;
-  stroke: #9ca3af;
+/* Vertical line connecting department header to the main line */
+.department-node::before {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  height: 2rem;
+  width: 2px;
+  background-color: #ced4da;
 }
 
-.react-flow__handle {
-  opacity: 0;
-}
-
-.custom-node-card {
-  padding: 14px 18px;
-  border-radius: 10px;
-  border-top: 6px solid;
-}
-
-.node-content {
+.department-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
+  gap: 0.75rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  cursor: pointer;
+  user-select: none;
+  border-left: 4px solid var(--dept-color);
+  transition: all 0.3s ease;
 }
 
-/* Color coding for departments */
-.custom-node-card.department-management {
-  border-color: #d53f8c; /* Pink */
-  background-color: #fff0f5;
-}
-.custom-node-card.department-support {
-  border-color: #718096; /* Gray */
-  background-color: #f7fafc;
-}
-.custom-node-card.department-finance {
-  border-color: #3182ce; /* Blue */
-  background-color: #ebf8ff;
-}
-.custom-node-card.department-childcare {
-  border-color: #38a169; /* Green */
-  background-color: #f0fff4;
+.department-header:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.node-icon {
-  flex-shrink: 0;
+.department-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #343a40;
+  margin: 0;
+  white-space: nowrap; /* Prevent wrapping during animation */
+  line-height: 1.2; /* Stabilize line height */
 }
 
+/* === Roles === */
+.department-roles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  overflow: hidden; /* For AnimatePresence */
+}
+
+.role-card {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.1rem;
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  width: 220px; /* Fixed width for alignment */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  position: relative; /* For tooltip positioning */
+  transition: all 0.2s ease-in-out;
+}
+
+.role-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.role-icon {
+  color: #6c757d;
+}
+
+.role-name {
+  font-weight: 500;
+  color: #495057;
+  flex-grow: 1;
+  font-size: 0.95rem; /* Explicitly set font size */
+  white-space: nowrap; /* Prevent wrapping */
+  line-height: 1.2; /* Stabilize line height */
+}
+
+.role-tooltip {
+  position: absolute;
+  bottom: 110%; /* Position above the card */
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 250px;
+  padding: 0.6rem 1rem;
+  background-color: #343a40;
+  color: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  pointer-events: none;
+  text-align: center;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .org-chart-container {
-    height: 500px;
-  }
-  
-  .react-flow__node {
-    width: 160px; /* Smaller width for mobile */
-    font-size: 12px;
+  .departments-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
   }
 
-  .custom-node-card {
-    padding: 10px 14px;
+  .departments-container::before {
+    display: none; /* Hide horizontal line on mobile */
   }
-  
-  .node-content {
-    gap: 8px;
+
+  .department-node::before {
+    top: -1.5rem; /* Adjust connector line */
+    height: 1.5rem;
+  }
+
+  .org-chart-container {
+    padding: 1.5rem 0.5rem;
   }
 }

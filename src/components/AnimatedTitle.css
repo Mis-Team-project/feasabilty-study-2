@@ -1,0 +1,26 @@
+/* src/components/AnimatedTitle.css */
+
+.animated-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* For RTL */
+    gap: 1rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.animated-title-icon {
+    color: var(--secondary-color);
+    width: 40px;
+    height: 40px;
+}
+
+.word-wrapper {
+    display: inline-block;
+    margin-right: 0.5em; /* Space between words */
+    white-space: nowrap;
+}

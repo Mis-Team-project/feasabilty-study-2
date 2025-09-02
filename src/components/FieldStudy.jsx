@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import {
-  Users, DollarSign, Road, TrendingUp, AlertTriangle, Trophy, 
-  Building2, Scale, GraduationCap, Plane, MapPin
+  Users, DollarSign, Route, TrendingUp, AlertTriangle, Trophy, 
+  Building2, Scale, GraduationCap, MapPin
 } from 'lucide-react';
 import './FieldStudy.css';
 
@@ -13,7 +13,7 @@ const locationsData = [
     reasons: [
       { text: 'كثافة سكانية عالية من الفئة المستهدفة', icon: <Users /> },
       { text: 'متوسط دخل مرتفع للأسر', icon: <DollarSign /> },
-      { text: 'قربه من طرق رئيسية وحيوية', icon: <Road /> },
+      { text: 'قربه من طرق رئيسية وحيوية', icon: <Route /> },
     ],
     expectations: [
       { text: 'إمكانية الوصول لنقطة التعادل خلال 12–14 شهرًا', icon: <TrendingUp /> },
@@ -27,7 +27,7 @@ const locationsData = [
     reasons: [
       { text: 'نمو عمراني متسارع وجذب للسكان الجدد', icon: <Building2 /> },
       { text: 'منافسة أقل نسبيًا مقارنة بالأحياء المجاورة', icon: <Scale /> },
-      { text: 'موقع استراتيجي بالقرب من مشاريع كبرى', icon: <Road /> },
+      { text: 'موقع استراتيجي بالقرب من مشاريع كبرى', icon: <Route /> },
     ],
     expectations: [
       { text: 'فرصة للاستحواذ على شريحة كبيرة من السوق', icon: <TrendingUp /> },

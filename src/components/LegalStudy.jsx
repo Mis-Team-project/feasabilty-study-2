@@ -1,89 +1,124 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { School, Building, FireExtinguisher, HeartPulse, FlaskConical } from 'lucide-react';
 import './LegalStudy.css';
+
+const totalFees = 45000; // 15000 + 20000 + 5000 + 3000 + 2000
 
 const licenses = [
   {
-    icon: <School size={32} />,
-    color: '#87CEEB', // Sky Blue
-    title: 'رخصة حضانة وروضة أطفال - وزارة التعليم',
+    icon: '🏫',
+    color: '#e0f2fe', // Sky Blue
+    borderColor: '#0ea5e9',
+    title: 'رخصة حضانة وروضة',
+    authority: 'وزارة التعليم',
     duration: 'تعتمد على الموافقة',
-    fees: '15,000 ريال',
-    percentage: '33.3% من إجمالي الرسوم',
+    fees: 15000,
   },
   {
-    icon: <Building size={32} />,
-    color: '#FFA500', // Orange
-    title: 'رخصة نشاط تجاري - الشؤون البلدية والقروية',
+    icon: '🏢',
+    color: '#fff7ed', // Orange
+    borderColor: '#f97316',
+    title: 'رخصة نشاط تجاري',
+    authority: 'وزارة الشؤون البلدية والقروية',
     duration: 'تعتمد على البلدية',
-    fees: '20,000 ريال',
-    percentage: '44.4% من إجمالي الرسوم',
+    fees: 20000,
   },
   {
-    icon: <FireExtinguisher size={32} />,
-    color: '#FF474C', // Red
-    title: 'شهادة سلامة - الدفاع المدني',
+    icon: '🚒',
+    color: '#fee2e2', // Red
+    borderColor: '#ef4444',
+    title: 'شهادة سلامة',
+    authority: 'الدفاع المدني',
     duration: 'سنة واحدة (تجدد سنوياً)',
-    fees: '5,000 ريال',
-    percentage: '11.1% من إجمالي الرسوم',
+    fees: 5000,
   },
   {
-    icon: <HeartPulse size={32} />,
-    color: '#4CAF50', // Green
-    title: 'شهادة صحة الأطفال - وزارة الصحة',
-    duration: 'إصدار إلكتروني سريع',
-    fees: '3,000 ريال',
-    percentage: '6.7% من إجمالي الرسوم',
+    icon: '⚕️',
+    color: '#f0fdf4', // Green
+    borderColor: '#22c55e',
+    title: 'شهادة صحية للأطفال',
+    authority: 'وزارة الصحة',
+    duration: 'إصدار إلكتروني فوري',
+    fees: 3000,
   },
   {
-    icon: <FlaskConical size={32} />,
-    color: '#9370DB', // Purple
-    title: 'فحص وتجديد صحي سنوي',
+    icon: '🧪',
+    color: '#f5f3ff', // Purple
+    borderColor: '#8b5cf6',
+    title: 'فحص وتجديد سنوي',
+    authority: 'متطلبات صحية سنوية',
     duration: 'سنوي',
-    fees: '2,000 ريال',
-    percentage: '4.4% من إجمالي الرسوم',
+    fees: 2000,
   },
 ];
 
-const TimelineCard = ({ item, index }) => {
-  const cardVariants = {
+const formatCurrency = (value) => new Intl.NumberFormat('ar-SA', { style: 'currency', currency: 'SAR', minimumFractionDigits: 0 }).format(value);
+
+const TimelineItem = ({ item, isLast }) => {
+  const percentage = ((item.fees / totalFees) * 100).toFixed(0);
+
+  const itemVariants = {
     hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: index * 0.2 } },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
   };
 
   return (
-    <motion.div 
-      className="timeline-item"
-      variants={cardVariants}
-      initial="hidden"
-      animate="visible"
-      whileHover={{ scale: 1.05 }}
-    >
-      <div className="timeline-dot"></div>
-      <div className="timeline-card" style={{ borderTopColor: item.color }}>
-        <div className="card-header">
-          <div className="card-icon" style={{ backgroundColor: item.color }}>{item.icon}</div>
-          <h4 className="card-title">{item.title}</h4>
+    <motion.div className="timeline-item" variants={itemVariants}>
+      <div className="timeline-connector">
+        <div className="timeline-dot" style={{ borderColor: item.borderColor }}></div>
+        {!isLast && <div className="timeline-line"></div>}
+      </div>
+      <div className="timeline-content-wrapper">
+        <div className="timeline-card" style={{ background: item.color, borderRight: `5px solid ${item.borderColor}` }}>
+          <div className="timeline-card-header">
+            <div className="timeline-icon">{item.icon}</div>
+            <div className="timeline-title-group">
+              <h4 className="timeline-title">{item.title}</h4>
+              <p className="timeline-authority">{item.authority}</p>
+            </div>
+          </div>
+          <div className="timeline-details">
+            <div className="detail-item">
+              <strong>الرسوم التقديرية:</strong>
+              <span>{formatCurrency(item.fees)}</span>
+            </div>
+            <div className="detail-item">
+              <strong>المدة / الصلاحية:</strong>
+              <span>{item.duration}</span>
+            </div>
+          </div>
+          <div className="tooltip">{`تمثل ${percentage}% من إجمالي الرسوم`}</div>
         </div>
-        <div className="card-body">
-          <p><strong>المدة:</strong> {item.duration}</p>
-          <p><strong>الرسوم المقدرة:</strong> {item.fees}</p>
-        </div>
-        <div className="card-tooltip">{item.percentage}</div>
       </div>
     </motion.div>
   );
 };
 
 const LegalStudy = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { staggerChildren: 0.2 }
+    },
+  };
+
   return (
-    <div className="legal-study-container">
-      <div className="timeline">
-        {licenses.map((item, index) => (
-          <TimelineCard key={index} item={item} index={index} />
-        ))}
+    <div className="legal-study-section">
+      <div className="legal-header">
+        <h2>الدراسات التنظيمية والقانونية</h2>
+        <p>خارطة طريق للحصول على التراخيص والموافقات اللازمة لتأسيس وتشغيل المركز.</p>
       </div>
+      <motion.div 
+        className="timeline-container"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        {licenses.map((item, index) => (
+          <TimelineItem key={index} item={item} isLast={index === licenses.length - 1} />
+        ))}
+      </motion.div>
     </div>
   );
 };

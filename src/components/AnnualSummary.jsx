@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Chart from 'react-apexcharts';
-import { motion } from 'framer-motion';
 import { LineChart, BarChart, AreaChart as AreaChartIcon, TrendingUp, TrendingDown, Target, Table } from 'lucide-react';
 import './AnnualSummary.css';
 
@@ -120,27 +119,27 @@ const AnnualSummary = () => {
                     <button onClick={() => setChartType('area')} className={chartType === 'area' ? 'active' : ''}><AreaChartIcon size={18} /> مساحي متراكم</button>
                     <button onClick={() => setChartType('combo')} className={chartType === 'combo' ? 'active' : ''}><BarChart size={18} /> مختلط</button>
                 </div>
-                <motion.div key={chartType} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+                <div key={chartType}>
                     <Chart 
                         options={options} 
                         series={series} 
                         type={chartType === 'area' ? 'area' : 'line'}
                         height={400} 
                     />
-                </motion.div>
+                </div>
             </div>
         </section>
     );
 };
 
 const KpiCard = ({ icon, title, value, color }) => (
-    <motion.div className="kpi-card" whileHover={{ y: -5, boxShadow: 'var(--shadow-lg)' }}>
+    <div className="kpi-card">
         <div className="kpi-icon" style={{ backgroundColor: color }}>{icon}</div>
         <div className="kpi-content">
             <span className="kpi-title">{title}</span>
             <span className="kpi-value">{value}</span>
         </div>
-    </motion.div>
+    </div>
 );
 
 export default AnnualSummary;
