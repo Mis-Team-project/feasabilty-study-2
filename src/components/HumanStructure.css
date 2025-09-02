@@ -1,0 +1,152 @@
+.human-structure-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  direction: rtl;
+  font-family: 'Cairo', sans-serif;
+  gap: 2rem;
+  width: 100%;
+}
+
+.level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.level-line {
+  width: 2px;
+  background-color: #e0e0e0;
+  height: 2rem;
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.level:first-child .level-line {
+  display: none;
+}
+
+.roles-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  position: relative;
+  width: 100%;
+}
+
+.role-group-wrapper {
+  position: relative;
+}
+
+.role-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-right: 4px solid var(--role-color, #bdc3c7);
+  border-left: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 300px;
+}
+
+.role-group:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.role-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-left: 1px solid #e0e0e0;
+  padding-left: 1rem;
+  color: var(--role-color);
+}
+
+.role-main-icon {
+  font-size: 1.5rem;
+}
+
+.role-title-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.employee-icon-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.employee-icon {
+  font-size: 1.8rem;
+  color: #34495e;
+  padding: 0.4rem;
+  border-radius: 8px;
+  background-color: #ecf0f1;
+}
+
+/* Tooltip Styles */
+.role-group-wrapper:hover .role-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-15px);
+}
+
+.role-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background-color: #34495e;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.role-tooltip p {
+  margin: 0.25rem 0;
+}
+
+.role-tooltip strong {
+  color: var(--role-color, #ecf0f1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .roles-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .role-group {
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+  }
+  .role-identity {
+    border-left: none;
+    padding-left: 0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #e0e0e0;
+    width: 100%;
+  }
+}

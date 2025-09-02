@@ -1,0 +1,98 @@
+.market-study-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f0f2f5;
+}
+
+.market-study-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-icon {
+  margin-bottom: 1rem;
+}
+
+.card-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.card-button-container {
+  position: relative;
+  margin-top: auto;
+}
+
+.card-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-button:hover {
+  background-color: #0056b3;
+}
+
+.chart-popup {
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 250px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  z-index: 10;
+  opacity: 0;
+  transform-origin: bottom center;
+  animation: fadeInScaleUp 0.3s ease forwards;
+  pointer-events: none;
+}
+
+.card-button-container:hover .chart-popup {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@keyframes fadeInScaleUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .market-study-container {
+    grid-template-columns: 1fr;
+  }
+}

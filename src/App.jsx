@@ -3,10 +3,24 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import { 
   Book, Target, FileText, Network, BarChart3, Tags, ShieldCheck, Wrench,
   CalendarClock, Users, Calculator, MonitorSmartphone, AlertTriangle,
-  ClipboardList, TrendingUp, Table, FileBarChart, PieChart, MapPin, Menu, X,
-  CheckCircle2
+  ClipboardList, TrendingUp, Table, FileBarChart, PieChart, Map, Menu, X,
+  CheckCircle2, Rss, Route
 } from 'lucide-react';
-import OrgChart from './components/OrgChart'; // Import the new component
+import OrgChart from './components/OrgChart';
+import MarketStudy from './components/MarketStudy';
+import Pricing from './components/Pricing';
+import LegalStudy from './components/LegalStudy';
+import TechnicalStudy from './components/TechnicalStudy';
+import DailyProgram from './components/DailyProgram';
+import HumanStructure from './components/HumanStructure';
+import FinancialStudy from './components/FinancialStudy';
+import WebAppSection from './components/WebAppSection';
+import RisksAndSolutions from './components/RisksAndSolutions';
+import MonthlyResults from './components/MonthlyResults';
+import AnnualSummary from './components/AnnualSummary';
+import ActionPlan from './components/ActionPlan';
+import FieldStudy from './components/FieldStudy'; // This is for site selection
+import FieldStudies from './components/FieldStudies'; // This is the new main section
 import './App.css';
 
 const sections = [
@@ -23,12 +37,16 @@ const sections = [
   { id: 'financials', title: 'الدراسة الاقتصادية والمالية (تقديرية)', icon: Calculator },
   { id: 'app', title: 'إنشاء موقع وتطبيق', icon: MonitorSmartphone },
   { id: 'risks', title: 'المخاطر والحلول', icon: AlertTriangle },
+  { id: 'monthly-results', title: 'النتائج الشهرية (سنة أولى – مختصر)', icon: Table },
+  { id: 'annual-summary', title: 'الملخص السنوي (3 سنوات)', icon: FileBarChart },
   { id: 'model-summary', title: 'ملخص النموذج', icon: ClipboardList },
   { id: 'indicators', title: 'أهم المؤشرات', icon: TrendingUp },
-  { id: 'monthly-results', title: 'النتائج الشهرية (سنة أولى – مختصر)', icon: Table },
-  { id: 'annual-summary', title: 'الملخص السنوي', icon: FileBarChart },
   { id: 'charts', title: 'الرسوم البيانية', icon: PieChart },
-  { id: 'action-plan', title: 'خطة العمل التشغيلية والدراسة الميدانية وترشيح المواقع الأنسب', icon: MapPin },
+  { id: 'divider-1', type: 'divider' },
+  { id: 'field-studies-main', title: 'الدراسات الميدانية', icon: Map },
+  { id: 'divider-2', type: 'divider' },
+  { id: 'action-plan', title: 'خطة العمل التشغيلية', icon: Rss },
+  { id: 'field-study-locations', title: 'ترشيح المواقع الأنسب', icon: Route },
 ];
 
 const SectionContent = ({ id }) => {
@@ -79,9 +97,22 @@ const SectionContent = ({ id }) => {
     );
   }
 
-  if (id === 'structure') {
-    return <OrgChart />;
-  }
+  if (id === 'structure') { return <OrgChart />; }
+  if (id === 'market-study') { return <MarketStudy />; }
+  if (id === 'pricing') { return <Pricing />; }
+  if (id === 'legal') { return <LegalStudy />; }
+  if (id === 'technical') { return <TechnicalStudy />; }
+  if (id === 'curriculum') { return <DailyProgram />; }
+  if (id === 'hr') { return <HumanStructure />; }
+  if (id === 'financials') { return <FinancialStudy />; }
+  if (id === 'app') { return <WebAppSection />; }
+  if (id === 'risks') { return <RisksAndSolutions />; }
+  if (id === 'monthly-results') { return <MonthlyResults />; }
+  if (id === 'annual-summary') { return <AnnualSummary />; }
+  if (id === 'action-plan') { return <ActionPlan />; }
+  if (id === 'field-study-locations') { return <FieldStudy />; }
+  if (id === 'field-studies-main') { return <FieldStudies />; }
+
 
   // Default content
   return <div><p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة.</p></div>;
@@ -121,6 +152,7 @@ function App() {
 
     const scrollPosition = currentScrollY + window.innerHeight / 2.5;
     for (const section of sections) {
+        if(section.type === 'divider') continue;
         const element = document.getElementById(section.id);
         if (element && scrollPosition >= element.offsetTop && scrollPosition < element.offsetTop + element.offsetHeight) {
             setActiveSection(section.id);
@@ -153,30 +185,39 @@ function App() {
       <aside className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header"><button onClick={toggleSidebar} className="close-btn"><X size={24} /></button></div>
         <ul className="sidebar-links">
-          {sections.map(({ id, title, icon: Icon }) => (
-            <li key={id} onClick={() => scrollToSection(id)} className={activeSection === id ? 'active-link' : ''}>
-              <Icon className="link-icon" size={20} />
-              <span>{title}</span>
-            </li>
-          ))}
+          {sections.map(({ id, title, icon: Icon, type }) => {
+            if (type === 'divider') {
+              return <li key={id} className="sidebar-divider"></li>;
+            }
+            return (
+              <li key={id} onClick={() => scrollToSection(id)} className={activeSection === id ? 'active-link' : ''}>
+                <Icon className="link-icon" size={20} />
+                <span>{title}</span>
+              </li>
+            );
+          })}
         </ul>
       </aside>
       
       {isSidebarOpen && <div className="overlay" onClick={toggleSidebar}></div>}
 
       <main className="main-content">
-        {sections.map(({ id, title, icon: Icon }) => {
-          const isStructureSection = id === 'structure';
-          const cardClassName = `page-card ${id === 'cover' ? 'cover-section' : ''} ${isStructureSection ? 'structure-section-card' : ''}`;
+        {sections.map(({ id, title, icon: Icon, type }) => {
+          if(type === 'divider') return null;
+          const isSpecialSection = ['structure', 'monthly-results', 'annual-summary', 'action-plan', 'field-study-locations', 'field-studies-main'].includes(id);
+          const cardClassName = `page-card ${id === 'cover' ? 'cover-section' : ''} ${isSpecialSection ? 'special-section-card' : ''}`;
           
           return (
             <AnimatedSection key={id} id={id} className={cardClassName}>
               <motion.div variants={staggerVariants}>
-                <motion.h2 variants={itemVariants} className="section-title">
-                  <Icon className="title-icon" />
-                  {title}
-                </motion.h2>
-                <motion.div variants={itemVariants} className={!isStructureSection ? "section-content" : ""}>
+                 {/* Remove the redundant title for special sections */}
+                {!isSpecialSection && (
+                  <motion.h2 variants={itemVariants} className="section-title">
+                    <Icon className="title-icon" />
+                    {title}
+                  </motion.h2>
+                )}
+                <motion.div variants={itemVariants} className={!isSpecialSection ? "section-content" : ""}>
                   <SectionContent id={id} />
                 </motion.div>
               </motion.div>

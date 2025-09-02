@@ -1,69 +1,86 @@
-# Blueprint: A4-Optimized Feasibility Study Website
+# Blueprint: Feasibility Study Website
 
 ## 1. Overview
 
-This document outlines a major redesign of the one-page feasibility study website. The goal is to create a professional, A4-based responsive layout optimized for mobile viewing and PDF export. The design will use a specific Arabic font, feature 19 distinct sections with updated icons, and include advanced navigation features like active section highlighting.
+This document outlines the structure and key components of the feasibility study website. The goal is to create a professional, responsive, and data-rich web application optimized for readability and analysis, with a consistent and modern user interface.
 
 ---
 
 ## 2. Core Features & Technologies
 
-- **Layout**: A4-proportioned, responsive card-based design for each section.
-- **Typography**: `IBMPlexSansArabic` font, as used in the reference documentation.
-- **Icons**: An updated set of icons from `lucide-react` for 19 sections.
-- **Animations**: Subtle, scroll-triggered entrance animations (`fade`, `slide`, `zoom`) via `framer-motion`.
-- **Navigation**:
-  - Transparent, auto-hiding sticky navbar.
-  - Sidebar with smooth-scroll links.
-  - **Active section highlighting** in the sidebar based on scroll position.
+- **Layout**: Responsive card-based design for each section.
+- **Framework**: React.js with `vite`.
+- **Typography**: `IBMPlexSansArabic`.
+- **Icons**: `lucide-react`.
+- **Animations**: `framer-motion`.
+- **Charts**: `react-apexcharts`.
+- **Navigation**: Auto-hiding sticky navbar, and a sidebar with smooth-scroll and active section highlighting.
 
 ---
 
-## 3. Section Breakdown & Icons
+## 3. Section Breakdown & Components
 
-| Section Title                                          | Icon (Lucide)         |
-| ------------------------------------------------------ | --------------------- |
-| 1. **الغلاف (Cover)**                                  | `Book`                |
-| 2. **الحديث عن المشروع وأهميته وفق رؤية 2030**          | `Target`              |
-| 3. **الملخص التنفيذي**                                | `FileText`            |
-| 4. **الهيكل الإداري والتنظيمي**                       | `Network`             |
-| 5. **دراسة السوق – شمال الرياض**                         | `BarChart3`           |
-| 6. **التسعير المرجعي**                                  | `Tags`                |
-| 7. **الدراسة القانونية والتنظيمية**                      | `ShieldCheck`         |
-| 8. **الدراسة الفنية والتشغيلية**                          | `Wrench`              |
-| 9. **المنهج والبرنامج اليومي**                          | `CalendarClock`       |
-| 10. **الهيكل البشري**                                  | `Users`               |
-| 11. **الدراسة الاقتصادية والمالية (تقديرية)**          | `Calculator`          |
-| 12. **إنشاء موقع وتطبيق**                              | `MonitorSmartphone`   |
-| 13. **المخاطر والحلول**                                | `AlertTriangle`       |
-| 14. **ملخص النموذج**                                    | `ClipboardList`       |
-| 15. **أهم المؤشرات**                                    | `TrendingUp`          |
-| 16. **النتائج الشهرية (سنة أولى – مختصر)**              | `Table`               |
-| 17. **الملخص السنوي**                                  | `FileBarChart`        |
-| 18. **الرسوم البيانية**                                 | `PieChart`            |
-| 19. **خطة العمل التشغيلية...**                         | `MapPin`              |
+The application is organized into logical sections, each corresponding to a specific component. Dividers are used in the navigation sidebar for better grouping.
+
+| Section Title | Component (`src/components/`) | ID | Icon (Lucide) |
+| :--- | :--- | :--- | :--- |
+| 1. الغلاف | - | `cover` | `Book` |
+| 2. الحديث عن المشروع وأهميته | - (Inline JSX) | `intro` | `Target` |
+| 3. الملخص التنفيذي | - (Inline JSX) | `summary` | `FileText` |
+| 4. الهيكل الإداري والتنظيمي | `OrgChart` | `structure`| `Network` |
+| 5. دراسة السوق | `MarketStudy` | `market-study`| `BarChart3` |
+| 6. التسعير المرجعي | `Pricing` | `pricing` | `Tags` |
+| 7. الدراسة القانونية | `LegalStudy` | `legal`| `ShieldCheck` |
+| 8. الدراسة الفنية والتشغيلية | `TechnicalStudy` | `technical`| `Wrench` |
+| 9. المنهج والبرنامج اليومي | `DailyProgram` | `curriculum`| `CalendarClock` |
+| 10. الهيكل البشري | `HumanStructure` | `hr`| `Users` |
+| 11. الدراسة المالية | `FinancialStudy`| `financials` | `Calculator` |
+| 12. إنشاء موقع وتطبيق | `WebAppSection` | `app` | `MonitorSmartphone`|
+| 13. المخاطر والحلول | `RisksAndSolutions` | `risks` | `AlertTriangle` |
+| 14. النتائج الشهرية | `MonthlyResults` |`monthly-results`| `Table` |
+| 15. الملخص السنوي | `AnnualSummary` | `annual-summary`| `FileBarChart` |
+| 16. ملخص النموذج | - (Inline JSX) |`model-summary`| `ClipboardList` |
+| 17. أهم المؤشرات | - (Inline JSX) |`indicators` | `TrendingUp` |
+| 18. الرسوم البيانية | - (Inline JSX) | `charts`| `PieChart` |
+| **--- Divider ---** | - | `divider-1` | - |
+| 19. **الدراسات الميدانية** | `FieldStudies` | `field-studies-main` | `Map` |
+| **--- Divider ---** | - | `divider-2` | - |
+| 20. **خطة العمل التشغيلية** | `ActionPlan` | `action-plan` | `Rss` |
+| 21. **ترشيح المواقع الأنسب** | `FieldStudy` | `field-study-locations`| `Route` |
+
 
 ---
 
-## 4. Implementation Plan
+## 4. Design & Theming
 
-1.  **Update `src/App.jsx`**:
-    -   Replace the sections data array with the new 19-section structure.
-    -   Implement scroll-spying logic to track the active section.
-    -   Pass the active section state to the `Sidebar` component.
+The application uses a unified light theme controlled by CSS variables in `src/App.css`. All new components must adhere to this theme to ensure visual consistency. Key variables include `--primary-color`, `--text-color`, `--background-color`, and `--card-bg`.
 
-2.  **Update `src/App.css`**:
-    -   Import and apply the `IBMPlexSansArabic` font from Google Fonts.
-    -   Redesign the main layout to be A4-proportioned.
-    -   Style each section as a clean, responsive card with soft shadows.
-    -   Add a style rule for highlighting the active navigation link (e.g., `.active-link`).
-    -   Add `@media print` styles to ensure a clean PDF export.
+---
 
-3.  **Enhance Navigation Components (`Navbar`, `Sidebar`)**:
-    -   Ensure the `Sidebar` correctly highlights the active link based on the props received from `App.jsx`.
-    -   Verify all smooth-scrolling links work with the new section IDs.
+## 5. Change Log & Implemented Components
 
-4.  **Final Review**:
-    -   Test active link highlighting and smooth scrolling thoroughly.
-    -   Confirm the A4 layout is responsive and does not have horizontal scroll on mobile.
-    -   Check the print preview to ensure clean PDF export.
+### **Major UI/UX & Content Overhaul (Latest)**
+
+- **Change**: Performed a significant visual and structural update across several key sections to enhance clarity, user experience, and modern aesthetics.
+- **New Components**:
+  - `FieldStudies.jsx` & `FieldStudies.css`
+- **Updated Components & Rationale**:
+  - **`ActionPlan.jsx`**:
+    - **Change**: Replaced the previous design with a responsive, horizontal timeline.
+    - **Features**: Displays 8 distinct phases from planning to launch, each with an icon, duration, and key activities. The design is modern, uses a connecting line, and adapts to a vertical layout on mobile for readability.
+  - **`FieldStudy.jsx` ("ترشيح المواقع الأنسب")**:
+    - **Change**: Redesigned the component to present a comparative analysis of top locations.
+    - **Features**: A 3-card grid layout for "الملقا", "القيروان", and "النرجس". Each card includes reasons and expectations with icons, and a button to open the location on Google Maps. Includes hover effects and responsive design.
+  - **`FieldStudies.jsx` (New Section)**:
+    - **Change**: Introduced a new, independent section for proposed field studies.
+    - **Features**: A grid of cards detailing 5 recommended studies (surveys, interviews, analysis, etc.) with modern icons, descriptions, and animations.
+  - **`App.jsx` & `App.css` (Structural)**:
+    - **Change**: Reorganized the main sections array to introduce "الدراسات الميدانية" as a distinct section, separated by dividers in the sidebar for better navigation. Fixed a CSS bug causing the sidebar divider to render incorrectly.
+
+### **AnnualSummary** (Previous Component)
+- **Files**: `src/components/AnnualSummary.jsx`, `AnnualSummary.css`
+- **Purpose**: Displays a 3-year financial summary with a data table and interactive charts.
+- **Features**: A data table, KPI cards, and a dynamic chart type selector.
+
+---
+*This blueprint is a living document and should be updated with each major change to reflect the current state of the project.*

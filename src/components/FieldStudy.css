@@ -1,0 +1,121 @@
+/* FieldStudy.css */
+
+.field-study-container {
+  direction: rtl;
+  width: 100%;
+}
+
+.field-study-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.field-study-header h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-color, #1a365d);
+  margin-bottom: 0.75rem;
+}
+
+.field-study-header p {
+  font-size: 1.1rem;
+  color: var(--text-color, #4a5568);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.field-study-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.location-card {
+  background: var(--card-bg, #fff);
+  border-radius: var(--border-radius-lg, 12px);
+  box-shadow: var(--shadow-sm);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 4px solid var(--secondary-color, #2a69ac);
+}
+
+.location-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px -10px rgba(42, 105, 172, 0.4);
+}
+
+.card-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--primary-color, #1a365d);
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
+.card-section {
+  margin-bottom: 1.5rem;
+}
+
+.card-section h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--secondary-color, #2a69ac);
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--table-border-color, #e2e8f0);
+}
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-color, #4a5568);
+}
+
+.card-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.list-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: var(--accent-color, #319795);
+}
+
+.map-button {
+  margin-top: auto; /* Pushes button to the bottom */
+  background-color: var(--primary-color, #1a365d);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.map-button:hover {
+  background-color: var(--secondary-color, #2a69ac);
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .field-study-grid {
+    grid-template-columns: 1fr;
+  }
+}

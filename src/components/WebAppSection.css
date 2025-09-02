@@ -1,0 +1,135 @@
+.web-app-card {
+  direction: rtl;
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(145deg, #ffffff, #f9f9f9);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border: 1px solid #f0f0f0;
+}
+
+.web-app-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.09);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  justify-items: center;
+}
+
+.feature-icon-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.icon-container {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--feature-color);
+    color: #fff;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    margin-bottom: 1rem; /* Added margin */
+}
+
+.feature-icon-wrapper:hover .icon-container {
+    transform: scale(1.1) translateY(-5px);
+    background-color: color-mix(in srgb, var(--feature-color) 90%, #000);
+}
+
+.feature-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #343a40;
+    margin: 0;
+}
+
+.feature-tooltip {
+  position: absolute;
+  top: calc(100% + 15px); /* Adjusted top position */
+  background-color: #343a40;
+  color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 12px;
+  width: 240px;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.tooltip-description {
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.cost-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    border: 1px solid #e9ecef;
+}
+
+.cost-item {
+    text-align: center;
+}
+
+.cost-label {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.cost-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #343a40;
+}
+
+.currency {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #495057;
+    margin-right: 0.25rem;
+}
+
+.cost-separator {
+    width: 1px;
+    height: 60px;
+    background-color: #dee2e6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .web-app-card {
+    padding: 1.5rem;
+  }
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .cost-section {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .cost-separator {
+      display: none;
+  }
+}
