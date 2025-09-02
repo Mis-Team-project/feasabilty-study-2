@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MapPin, School, ShieldCheck, Building, Tv, ToyBrick, Video, Smartphone, LayoutGrid, X, Lightbulb, PieChart, BarChart2, LineChart, Book, Users, TrendingUp } from 'lucide-react';
-import { Pie, Bar, ComposedChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
+import { Pie, Bar, ComposedChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Cell, Line } from 'recharts';
 import './TechnicalStudy.css';
 
 // Data for existing sections
@@ -191,7 +191,7 @@ const ChartModal = ({ data, onClose }) => {
                             <YAxis unit="%" />
                             <Tooltip formatter={(value) => value + '%'} />
                             <Legend />
-                            <Bar dataKey="value" name="نسبة الإشغال" barSize={30} fill="#42e695" />
+                            <Line type="monotone" dataKey="value" name="نسبة الإشغال" stroke="#42e695" strokeWidth={3} />
                         </ComposedChart>
                     </ResponsiveContainer>
                 );
