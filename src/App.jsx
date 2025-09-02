@@ -1,5 +1,7 @@
+ 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useAnimation, useInView } from 'framer-motion';
+// eslint-disable-next-line no-unused-vars
+import { useAnimation, useInView, motion } from 'framer-motion';
 import {
   Book, Target, FileText, Network, BarChart3, Tags, ShieldCheck, Wrench,
   Users, Calculator, MonitorSmartphone, AlertTriangle,
@@ -12,7 +14,7 @@ import Pricing from './components/Pricing';
 import LegalStudy from './components/LegalStudy';
 import TechnicalStudy from './components/TechnicalStudy';
 import HumanStructure from './components/HumanStructure';
-import FinancialStudy from './components/FinancialStudy';
+import FinancialEconomicStudy from './components/FinancialEconomicStudy';
 import WebAppSection from './components/WebAppSection';
 import RisksAndSolutions from './components/RisksAndSolutions';
 import MonthlyResults from './components/MonthlyResults';
@@ -25,7 +27,6 @@ import KeyMetrics from './components/KeyMetrics';
 import Footer from './components/Footer';
 import AnimatedTitle from './components/AnimatedTitle';
 import Cover from './components/Cover'; 
-// Import the new content components
 import IntroSectionContent from './components/IntroSectionContent'; 
 import SummarySectionContent from './components/SummarySectionContent';
 
@@ -71,7 +72,7 @@ const SectionContent = ({ id }) => {
   if (id === 'legal') { return <LegalStudy />; }
   if (id === 'technical') { return <TechnicalStudy />; }
   if (id === 'hr') { return <HumanStructure />; } 
-  if (id === 'financials') { return <FinancialStudy />; }
+  if (id === 'financials') { return <FinancialEconomicStudy />; } 
   if (id === 'app') { return <WebAppSection />; }
   if (id === 'risks') { return <RisksAndSolutions />; } 
   if (id === 'monthly-results') { return <MonthlyResults />; }
@@ -82,8 +83,6 @@ const SectionContent = ({ id }) => {
   if (id === 'model-summary') { return <ModelSummary />; }
   if (id === 'indicators') { return <KeyMetrics />; } 
 
-
-  // Default content
   return <div><p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة.</p></div>;
 };
 
@@ -153,13 +152,14 @@ function App() {
       <aside className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header"><button onClick={toggleSidebar} className="close-btn"><X size={24} /></button></div>
         <ul className="sidebar-links">
-          {sections.map(({ id, title, icon: Icon, type }) => {
+          {/* eslint-disable-next-line no-unused-vars */}
+          {sections.map(({ id, title, icon: IconComponent, type }) => {
             if (type === 'divider') {
               return <li key={id} className="sidebar-divider"></li>;
             }
             return (
               <li key={id} onClick={() => scrollToSection(id)} className={activeSection === id ? 'active-link' : ''}>
-                <Icon className="link-icon" size={20} />
+                <IconComponent className="link-icon" size={20} />
                 <span>{title}</span>
               </li>
             );
@@ -170,11 +170,12 @@ function App() {
       {isSidebarOpen && <div className="overlay" onClick={toggleSidebar}></div>}
 
       <main className="main-content">
-        {sections.map(({ id, title, icon: Icon, type }) => {
+        { }
+        {sections.map(({ id, title, icon: IconComponent, type }) => {
           if(type === 'divider') return null;
           if(id === 'cover') return (
               <section key={id} id={id} className="cover-section">
-                  <Cover /> {/* Use the Cover component here */}
+                  <Cover /> 
               </section>
           )
 
@@ -183,7 +184,8 @@ function App() {
           return (
             <AnimatedSection key={id} id={id} className={cardClassName}>
               <motion.div variants={contentVariants}>
-                <AnimatedTitle title={title} icon={Icon} />
+                 {/* eslint-disable-next-line no-unused-vars */}
+                <AnimatedTitle title={title} icon={IconComponent} /> 
                 <motion.div className="section-content">
                   <SectionContent id={id} />
                 </motion.div>

@@ -1,14 +1,15 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { 
-  ClipboardList, 
-  Building, 
-  Paintbrush, 
-  Landmark, 
-  Users, 
-  Megaphone, 
-  HardHat, 
-  PartyPopper 
+import {
+  ClipboardList,
+  Building,
+  Paintbrush,
+  Landmark,
+  Users,
+  Megaphone,
+  HardHat,
+  PartyPopper
 } from 'lucide-react';
 import './ActionPlan.css';
 

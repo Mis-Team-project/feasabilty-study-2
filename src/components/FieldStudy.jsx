@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import {
   Users, DollarSign, Route, TrendingUp, AlertTriangle, Trophy, 
@@ -23,7 +24,7 @@ const locationsData = [
   },
   {
     name: 'حي القيروان',
-    mapUrl: 'https://www.google.com/maps/place/%D8%A7%D9%84%D9%82%D9%8A%D8%B1%D9%88%D8%A7%D9%86%D8%8C+%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6',
+    mapUrl: 'https://www.google.com/maps/place/%D8%A7%D9%84%D9%82%D9%8A%D8%B1%D9%88%D9%88%D8%A7%D9%86%D8%8C+%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6',
     reasons: [
       { text: 'نمو عمراني متسارع وجذب للسكان الجدد', icon: <Building2 /> },
       { text: 'منافسة أقل نسبيًا مقارنة بالأحياء المجاورة', icon: <Scale /> },

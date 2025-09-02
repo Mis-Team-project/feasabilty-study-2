@@ -1,83 +1,81 @@
-# Blueprint: مشروع مركز رعاية الأطفال
+# Project Blueprint: Kindergarten Financial and Economic Study
 
-## نظرة عامة
+## Overview
+This document outlines the development of an interactive "Financial and Economic Study" section for a kindergarten website. The section will be in Arabic (RTL), modern, clean, fully responsive, and visually engaging, featuring summary cards and dynamic ApexCharts.
 
-هذا المستند هو المصدر المرجعي لتصميم وتطوير تطبيق الويب الخاص بدراسة جدوى مشروع مركز رعاية الأطفال. يهدف التطبيق إلى عرض جميع جوانب المشروع بطريقة تفاعلية وجذابة بصريًا.
+## Detailed Outline
 
----
+### Current State
+The project currently has a basic React setup with various components. The goal is to integrate a new, rich, and interactive section.
 
-## سجل التغييرات والتطورات
+### Features Implemented (Initial Version)
+- React application structure.
+- Basic CSS styling.
 
-### الإصدار الأولي
+### Plan for Current Requested Change: Financial and Economic Study Section
 
-*   **الهيكل الأساسي:** تم بناء التطبيق باستخدام React + Vite.
-*   **المكونات الأساسية:** تم إنشاء مجموعة من المكونات لعرض أقسام مختلفة من دراسة الجدوى.
+**Purpose:** To present key financial and economic data related to the kindergarten in an interactive and visually appealing manner.
 
-### التعديلات والتحسينات الأخيرة
+**Actionable Steps:**
 
-1.  **إضافة تذييل (`Footer.jsx`):** تم إنشاء مكون احترافي.
+1.  **Create `blueprint.md` (Completed):** Document the plan and project outline.
+2.  **Create `src/components/FinancialEconomicStudy.jsx`:**
+    *   This component will encapsulate the entire Financial and Economic Study section.
+    *   It will manage the state for selected cards and data for charts.
+3.  **Create `src/components/FinancialEconomicStudy.css`:**
+    *   Define styles for the section, including cards, chart containers, and responsive adjustments.
+    *   Ensure RTL compatibility.
+    *   Implement animations for numbers counting up on scroll.
+4.  **Create `src/components/AnimatedNumber.jsx`:**
+    *   A reusable component to animate numbers from 0 to a target value, specifically designed for scroll-triggered animation.
+    *   Utilize `react-intersection-observer` for visibility detection.
+5.  **Update `src/App.jsx`:**
+    *   Import and render the `FinancialEconomicStudy` component within the main application layout.
+6.  **Define Data:**
+    *   Embed the provided Arabic financial data directly within `FinancialEconomicStudy.jsx` for initial development.
+    *   Structure the data for easy consumption by ApexCharts.
+7.  **Implement Summary Cards (Part 1):**
+    *   Design and render 3 visually appealing cards (`تكاليف التأسيس`, `التشغيل الشهري`, `الإيرادات المتوقعة`).
+    *   Display the total for each card.
+    *   Add a "عرض الرسم البياني" button/action area.
+    *   Manage the active card state using `useState`.
+    *   Integrate `AnimatedNumber` for the totals in the cards.
+8.  **Implement Interactive Charts (Part 2):**
+    *   Use `useState` to conditionally render different charts based on the selected card.
+    *   **ApexCharts Integration:**
+        *   **For `تكاليف التأسيس`:**
+            *   Render a Pie/Doughnut Chart showing the distribution of costs.
+            *   Configure tooltips to show item name, amount, and percentage.
+        *   **For `التشغيل الشهري`:**
+            *   Render a Pie/Doughnut Chart showing the distribution of monthly expenses.
+            *   Configure tooltips to show item name, amount, and percentage.
+        *   **For `الإيرادات المتوقعة`:**
+            *   **Break-even / Line Chart:** Plot revenues vs. costs to identify the break-even point. This will require calculating monthly revenues based on child count and cost.
+            *   **Comparative / Scenario Charts (Stacked Bar Chart):** Create hypothetical scenarios (e.g., different child counts or pricing tiers) and compare their revenues, costs, and profits using a stacked bar chart.
+            *   Configure tooltips for all charts to show relevant details (name, amount, percentage/value on axis).
+9.  **Styling Enhancements:**
+    *   Ensure smooth transitions for card selection and chart rendering.
+    *   Apply modern design principles: rounded corners, soft shadows, clear typography, and a vibrant color palette.
+    *   Verify full responsiveness across various screen sizes.
+    *   Ensure RTL layout for all elements.
+10. **Refinements and Error Handling:**
+    *   Run `eslint . --fix` to maintain code quality.
+    *   Test thoroughly in the preview environment for functionality, responsiveness, and visual accuracy.
+    *   Address any console errors or warnings.
 
-2.  **إعادة تصميم "الدراسة الفنية" (`TechnicalStudy.jsx`):** واجهة بطاقات تفاعلية مع نافذة عرض تفصيلية.
+## Styling Guidelines
 
-3.  **إعادة تصميم "الدراسات القانونية" (`LegalStudy.jsx`):** جدول زمني عمودي تفاعلي.
+*   **Aesthetics:** Modern, clean, and engaging design with a focus on user experience.
+*   **Fonts:** Clear and readable Arabic typography, with appropriate size hierarchy.
+*   **Color Palette:** Vibrant and energetic, color-coded for chart clarity.
+*   **Shadows:** Soft, multi-layered drop shadows for depth and "lifted" card appearance.
+*   **Interactivity:** Smooth transitions, responsive hover effects for buttons and chart elements.
+*   **Responsiveness:** Fully adaptable layout for desktop, tablet, and mobile screens.
+*   **RTL:** All text and layout elements will be right-to-left.
 
-4.  **إعادة تصميم "الدراسة المالية" (`FinancialStudy.jsx`):** مخططات تفاعلية باستخدام `recharts`.
+## Accessibility (A11Y) Standards
 
-5.  **إعادة تصميم "دراسة السوق" (`MarketStudy.jsx`):** تصميم محدث مع نافذة منبثقة تفاعلية.
+*   Ensure proper ARIA attributes for interactive elements.
+*   Maintain sufficient color contrast.
+*   Provide keyboard navigation where applicable.
 
-6.  **إعادة تصميم "التسعير المرجعي" (`Pricing.jsx`):
-    *   **الوصف:** تم تعديل قسم التسعير المرجعي لتحسين تجربة المستخدم وجعله أكثر تفاعلية.
-    *   **الحل:**
-        *   تم تغيير ظهور التفاصيل من تأثير الـ `hover` إلى النقر على زر "عرض التفاصيل" / "إخفاء التفاصيل" داخل كل بطاقة تسعير.
-        *   تظهر التفاصيل الآن مباشرة داخل الكارت نفسه عند النقر، مما يضمن عدم تداخل الرسوم البيانية أو المحتوى مع العناصر الأخرى في الصفحة.
-        *   تم استخدام خاصية `layout` من `framer-motion` في المكون `PricingCard` لتمكين الرسوم المتحركة السلسة عند تغيير حجم البطاقة (توسيعها أو تصغيرها) عند عرض أو إخفاء التفاصيل.
-        *   تم ضبط أنماط CSS لـ `pricing-card` و `card-details-content` لضمان أن التفاصيل تظهر كجزء من تدفق المستند الطبيعي داخل الكارت، وتمت معالجة تداخل الرسوم البيانية بزيادة ارتفاع الحاوية الخاصة بها.
-
-7.  **تطوير "الهيكل التنظيمي" (`OrgChart.jsx`):
-    *   **المشكلة:** كان عرض الهيكل التنظيمي غير مطابق للرؤية المطلوبة، وكانت هناك مشكلة مستمرة في ظهور التلميح (tooltip) خلف عناصر أخرى بسبب قيود "سياق التكديس" (Stacking Context).
-    *   **الحل (التكرار الثالث - نهائي):** تم إعادة بناء آلية التلميح بالكامل لحل المشكلة بشكل جذري.
-        *   **إزالة CSS Hover:** تم حذف جميع أنماط CSS المتعلقة بالتلميح لتجنب مشاكل `z-index`.
-        *   **التحكم بـ JavaScript:** تم تعديل مكون `OrgChart.jsx` ليستخدم حالة React (`useState`) لتتبع البطاقة التي يتم الحومان فوقها.
-        *   **مكون تلميح مُطلق (`position: fixed`):** تم إنشاء مكون `<Tooltip />` جديد يتم عرضه بشكل مُطلق بالنسبة لإطار العرض. هذا يضمن ظهوره **فوق كل شيء آخر** في الصفحة، متجاوزًا أي قيود لسياق التكديس.
-        *   **المحتوى الديناميكي:** يعرض التلميح الآن بوضوح **عدد الموظفين** و**طبيعة مهامهم** عند الحومان.
-        *   **إصلاح مشكلة التلميح في `OrgChart.css`:** تم إزالة `overflow: hidden;` من `.department-roles` لضمان ظهور التلميح بشكل صحيح.
-
-8.  **إنشاء "تحليل المخاطر" (`RiskAnalysis.jsx`):** مكون جديد بتصميم حديث.
-
-9.  **إضافة عناوين متحركة (`AnimatedTitle.jsx`):
-    *   **التحسين:** تم إنشاء مكون `AnimatedTitle` يستخدم `framer-motion` لإضافة تأثير ظهور تدريجي جذاب لعناوين الأقسام.
-
-10. **توحيد واستعادة "الهيكل البشري":**
-    *   **الخطوة 1 (التوحيد):** بناءً على طلب، تم نسخ محتوى قسم "الهيكل الإداري والتنظيمي" إلى قسم "الهيكل البشري" لتوحيد المحتوى.
-    *   **الخطوة 2 (الحذف المبدئي):** تم اقتراح وإجراء حذف لقسم "الهيكل البشري" لتجنب التكرار.
-    *   **الخطوة 3 (التراجع والاستعادة):** بناءً على طلب لاحق، تم **التراجع عن الحذف**. تم استعادة ملفات `HumanStructure.jsx` و `HumanStructure.css` وإعادة تفعيل القسم في القائمة الرئيسية للتطبيق (`App.jsx`). القسمان الآن موجودان وكلاهما يعرض نفس المحتوى.
-
-11. **إضافة قسم الغلاف (`Cover.jsx`):
-    *   **الوصف:** تم إنشاء مكون `Cover.jsx` لعرض صورة الغلاف الرئيسية للصفحة. يتضمن المكون الصورة المرفقة كخلفية، مع تراكب (overlay) لوني، وعنوان رئيسي "دراسة جدوى لحضانة ورياض أطفال بالرياض"، وعنوان فرعي "مركز الطفولة المبكرة: رعاية وتعليم مبتكر لصناع المستقبل" بتصميم جذاب وعصري.
-    *   **التطبيق:** تم استيراد المكون `Cover` في `App.jsx` واستخدامه في قسم "الغلاف" (`id: 'cover'`).
-    *   **تعديلات لحل مشكلة الصورة والنص:** تم تعديل `src/components/Cover.css` لحل مشكلة عدم ظهور الصورة بشكل صحيح وظهور النص عموديًا أو مقطوعًا. تم تغيير طريقة عرض الصورة من وسم `<img>` إلى خاصية `background-image` في CSS، وتم ضبط `direction: rtl;` و `text-align: center;` للنص.
-
-12. **تعديل أول قسمين (`IntroSectionContent.jsx`, `SummarySectionContent.jsx`):
-    *   **الوصف:** تم إعادة هيكلة أول قسمين (بعد الغلاف) وهما "الحديث عن المشروع وأهميته وفق رؤية 2030" و "الملخص التنفيذي" ليصبحا أكثر تناسقًا وتنظيمًا مع بقية أقسام الموقع.
-    *   **التطبيق:** تم نقل محتوى كل قسم إلى مكون React منفصل، وتم إنشاء ملفات CSS مخصصة لكل مكون لتطبيق تصميمات عصرية، مع استخدام `framer-motion` لتأثيرات حركية جذابة.
-
-13. **تحديث وإصلاح مشكلة الرسوم البيانية في "الدراسات الفنية والتشغيلية" (`TechnicalStudy.jsx` و `TechnicalStudy.css`):
-    *   **الوصف:** معالجة مشكلة اختفاء الموقع بالكامل عند النقر على أزرار الرسوم البيانية "الفئات العمرية" و "السعة الاستيعابية"، وتحديث بيانات المؤشرات التشغيلية وإضافة كارت "الخدمات".
-    *   **الحل:**
-        *   **السبب الجذري:** تم تحديد أن المشكلة الرئيسية كانت في التهيئة غير الصحيحة لمكون `BarChart` في `ChartModal` (خاصة محاور `XAxis` و `YAxis` لـ "الطاقة الاستيعابية"). هذا الخطأ كان يسبب تعطلًا في مكتبة `recharts` يؤدي إلى انهيار التطبيق.
-        *   **التصحيحات في `TechnicalStudy.jsx`:**
-            *   تم تحديث محتوى `operationalData` ليشمل البيانات الجديدة لـ "الفئات"، "السعة التصميمية"، "نسب الإشغال المتوقعة"، وإضافة كارت "الخدمات".
-            *   تم تصحيح تعريف `XAxis` (ليصبح `type="number" dataKey="value"`) و `YAxis` (ليصبح `type="category" dataKey="name"`) لمخطط `BarChart` في `renderChart`، وتم التأكيد على `layout="vertical"`.
-            *   تم التأكيد على إضافة `key={activeChart.id}` و `mode="wait"` لـ `AnimatePresence` و `ChartModal` لضمان الانتقالات السلسة وتتبع المكونات بشكل صحيح.
-            *   تم توسيع دالة `renderChart` لدعم عرض قائمة الخدمات الجديدة (chartType: 'services-list').
-        *   **التصحيحات في `TechnicalStudy.css`:**
-            *   تم رفع `z-index` لمكونات النوافذ المنبثقة إلى `9999` و `10000` على التوالي.
-            *   تم تحديد ارتفاع صريح (`height: 350px;`) لـ `.chart-container`.
-            *   تمت إضافة أنماط CSS جديدة لـ `services-list-container` وعناصرها الفرعية لعرض قائمة الخدمات بشكل جذاب.
-
----
-
-## الخطة الحالية والمستقبلية
-
-*   **المهمة الحالية:** المشروع في حالة مستقرة بعد حل جميع المشاكل المعروفة.
-*   **الخطوات التالية:** مراجعة شاملة للتطبيق، التأكد من تناسق التصميم والاستجابة الكاملة للشاشات المختلفة، ثم إعلان اكتمال المشروع.
