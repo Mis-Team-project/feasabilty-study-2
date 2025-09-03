@@ -1,98 +1,72 @@
 # Project Blueprint: Kindergarten Financial and Economic Study
 
 ## Overview
-This document outlines the development of an interactive "Financial and Economic Study" section for a kindergarten website. The section will be in Arabic (RTL), modern, clean, fully responsive, and visually engaging, featuring summary cards and dynamic ApexCharts.
+This document outlines the development of an interactive "Financial and Economic Study" section for a kindergarten website. The section is designed to be modern, clean, fully responsive, and visually engaging, featuring summary cards, detailed modals, and dynamic ApexCharts, with a strong focus on user experience and readability in Arabic (RTL).
 
 ## Detailed Outline
 
 ### Current State
-The project currently has a basic React setup with various components. The goal is to integrate a new, rich, and interactive section.
+The project has a well-structured React application. The latest major update involved a complete rebuild of the "Financial and Economic Study" section to be highly interactive and data-driven.
 
-### Features Implemented (Initial Version)
-- React application structure.
-- Basic CSS styling.
+### Features Implemented
 
-### Responsiveness Improvements
-To address the issue of the website not being responsive on mobile devices, the following CSS files were updated to include media queries and flexible styling:
+-   **React Application Structure:** Robust and component-based.
+-   **Comprehensive Responsiveness:** Media queries and flexible layouts are applied across the application, ensuring a seamless experience on all devices.
+-   **Centered and Modern Layout:** Consistent use of modern CSS for centered, clean, and professional layouts.
 
--   `src/App.css`: Reviewed and confirmed existing responsive styles for general layout, and ensured proper base styles.
--   `src/components/Cover.css`: Verified and refined existing media queries for font sizes to ensure optimal display on various screen sizes.
--   `src/components/HumanStructure.css`: Implemented comprehensive media queries to adjust padding, font sizes, and layout of role groups, making the organizational structure responsive.
--   `src/components/TechnicalStudy.css`: Enhanced existing media queries to refine grid layouts, modal sizes, and font sizes within the technical study categories and operational indicators.
--   `src/components/ActionPlan.css`: Improved existing media queries to ensure the timeline layout, font sizes, and spacing within the action plan are fully responsive, including a new breakpoint for very small screens.
+### New: Financial and Economic Study Section (Interactive & Modern)
 
-These changes collectively ensure that the website content adapts gracefully to different screen sizes, preventing content from being cut off and providing a better user experience on mobile devices.
+This section was completely redesigned and implemented to provide a rich, interactive financial overview.
 
-### Centering Improvements
-To address the issue of content not being centered, the following CSS files were updated:
+**Purpose:** To present key financial data (establishment costs, operational costs, and revenue projections) in a visually appealing and easily digestible format.
 
--   `src/App.css`: Changed `justify-content: flex-end;` to `justify-content: center;` for `.section-title` to center the section titles.
--   `src/components/HumanStructure.css`: Added `max-width: 1200px;` and `margin: 0 auto;` to `.human-structure-container` to center the main container. Also, added `display: flex; flex-direction: column; align-items: center;` to `.level` and `justify-content: center; width: 100%;` to `.level-roles` to center the content within each organizational level.
--   `src/components/TechnicalStudy.css`: Confirmed that `max-width` and `margin: 0 auto;` are already applied to main containers (`.technical-study-section`, `.technical-study-header`, `.categories-container`, `.operational-indicators-section`), and `display: flex; justify-content: center; align-items: center;` is applied to backdrops, ensuring content is correctly centered.
+**Key Components & Features:**
 
-## Plan for Current Requested Change: Financial and Economic Study Section
+1.  **`FinancialEconomicStudy.jsx` (Main Component):**
+    *   Acts as the central container for this entire section.
+    *   Manages the state for the modal window visibility and the data passed to it.
+    *   Integrates all sub-components into a cohesive unit.
 
-**Purpose:** To present key financial and economic data related to the kindergarten in an interactive and visually appealing manner.
+2.  **`FinancialEconomicStudy.css` (Styling):**
+    *   A dedicated stylesheet that defines a modern color palette (`--cool-blue`, `--vibrant-green`, etc.).
+    *   Styles for summary cards, including hover effects (`transform`, `box-shadow`) and `border-radius`.
+    *   Defines the look and feel of the interactive charts, buttons, and the modal window, ensuring a consistent and polished design.
+    *   All styles are written to be fully compatible with a Right-to-Left (RTL) layout.
 
-**Actionable Steps:**
+3.  **`AnimatedNumber.jsx` (Dynamic Number Display):**
+    *   A reusable component that uses `framer-motion` to animate numbers, making financial data feel more dynamic and engaging.
+    *   Triggers the animation when the component comes into view (`useInView`).
 
-1.  **Create `blueprint.md` (Completed):** Document the plan and project outline.
-2.  **Create `src/components/FinancialEconomicStudy.jsx`:**
-    *   This component will encapsulate the entire Financial and Economic Study section.
-    *   It will manage the state for selected cards and data for charts.
-3.  **Create `src/components/FinancialEconomicStudy.css`:**
-    *   Define styles for the section, including cards, chart containers, and responsive adjustments.
-    *   Ensure RTL compatibility.
-    *   Implement animations for numbers counting up on scroll.
-4.  **Create `src/components/AnimatedNumber.jsx`:**
-    *   A reusable component to animate numbers from 0 to a target value, specifically designed for scroll-triggered animation.
-    *   Utilize `react-intersection-observer` for visibility detection.
-5.  **Update `src/App.jsx`:**
-    *   Import and render the `FinancialEconomicStudy` component within the main application layout.
-6.  **Define Data:**
-    *   Embed the provided Arabic financial data directly within `FinancialEconomicStudy.jsx` for initial development.
-    *   Structure the data for easy consumption by ApexCharts.
-7.  **Implement Summary Cards (Part 1):**
-    *   Design and render 3 visually appealing cards (`تكاليف التأسيس`, `التشغيل الشهري`, `الإيرادات المتوقعة`).
-    *   Display the total for each card.
-    *   Add a "عرض الرسم البياني" button/action area.
-    *   Manage the active card state using `useState`.
-    *   Integrate `AnimatedNumber` for the totals in the cards.
-8.  **Implement Interactive Charts (Part 2):**
-    *   Use `useState` to conditionally render different charts based on the selected card.
-    *   **ApexCharts Integration:**
-        *   **For `تكاليف التأسيس`:**
-            *   Render a Pie/Doughnut Chart showing the distribution of costs.
-            *   Configure tooltips to show item name, amount, and percentage.
-        *   **For `التشغيل الشهري`:**
-            *   Render a Pie/Doughnut Chart showing the distribution of monthly expenses.
-            *   Configure tooltips to show item name, amount, and percentage.
-        *   **For `الإيرادات المتوقعة`:**
-            *   **Break-even / Line Chart:** Plot revenues vs. costs to identify the break-even point. This will require calculating monthly revenues based on child count and cost.
-            *   **Comparative / Scenario Charts (Stacked Bar Chart):** Create hypothetical scenarios (e.g., different child counts or pricing tiers) and compare their revenues, costs, and profits using a stacked bar chart.
-            *   Configure tooltips for all charts to show relevant details (name, amount, percentage/value on axis).
-9.  **Styling Enhancements:**
-    *   Ensure smooth transitions for card selection and chart rendering.
-    *   Apply modern design principles: rounded corners, soft shadows, clear typography, and a vibrant color palette.
-    *   Verify full responsiveness across various screen sizes.
-    *   Ensure RTL layout for all elements.
-10. **Refinements and Error Handling:**
-    *   Run `eslint . --fix` to maintain code quality.
-    *   Test thoroughly in the preview environment for functionality, responsiveness, and visual accuracy.
-    *   Address any console errors or warnings.
+4.  **Summary Cards (`SummaryTableCard`):**
+    *   Three distinct cards for **"تكاليف التأسيس"**, **"التشغيل الشهري"**, and **"الإيرادات المتوقعة"**.
+    *   Each card features a `lucide-react` icon, a list of detailed items, and animated numbers for costs.
+    *   The cost-related cards include a **"عرض التفاصيل"** button.
 
-## Styling Guidelines
+5.  **Modal with Donut Chart (`SummaryModal`):**
+    *   Clicking "عرض التفاصيل" opens a sleek modal window (`framer-motion` for animations).
+    *   The modal displays a **Donut Chart** (`react-apexcharts`) visualizing the cost breakdown for the selected category.
+    *   Provides a clear, focused view of the data.
 
-*   **Aesthetics:** Modern, clean, and engaging design with a focus on user experience.
-*   **Fonts:** Clear and readable Arabic typography, with appropriate size hierarchy.
-*   **Color Palette:** Vibrant and energetic, color-coded for chart clarity.
-*   **Shadows:** Soft, multi-layered drop shadows for depth and "lifted" card appearance.
-*   **Interactivity:** Smooth transitions, responsive hover effects for buttons and chart elements.
-*   **Responsiveness:** Fully adaptable layout for desktop, tablet, and mobile screens.
-*   **RTL:** All text and layout elements will be right-to-left.
+6.  **Interactive Charts Section (`InteractiveChartsSection`):**
+    *   A powerful, multi-chart container allowing users to switch between different financial perspectives.
+    *   **Chart Toggles:** Three buttons to switch between:
+        *   **توزيع التكاليف (Pie Chart):** Compares total establishment costs vs. annual operational costs.
+        *   **مقارنة شاملة (Bar Chart):** A stacked bar chart comparing establishment costs, annual operational costs, and projected annual revenue at the break-even point.
+        *   **نقطة التعادل (Line Chart):** A line chart tracking cumulative revenue vs. cumulative costs over 12 months, with an annotation highlighting the approximate break-even point.
+    *   Uses `AnimatePresence` from `framer-motion` for smooth, animated transitions between charts.
+
+**Data & Styling:**
+
+-   **Data:** All financial figures and labels are embedded within `FinancialEconomicStudy.jsx` as structured objects.
+-   **Color Palette:**
+    *   **Primary:** `#4A90E2` (Cool Blue)
+    *   **Secondary:** `#F4F5F7` (Light Gray)
+    *   **Accent:** `#50E3C2` (Vibrant Green)
+    *   **Text:** `#333333` (Dark Charcoal)
+-   **Design:** The design emphasizes clarity through clean typography, soft shadows, and a well-defined visual hierarchy.
 
 ## Accessibility (A11Y) Standards
 
-*   Ensure proper ARIA attributes for interactive elements.
-*   Maintain sufficient color contrast.
-*   Provide keyboard navigation where applicable.
+*   Sufficient color contrast is maintained for readability.
+*   Interactive elements like buttons and modals are designed to be intuitive.
+*   Chart tooltips enhance data understanding.

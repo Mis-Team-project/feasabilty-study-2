@@ -57,31 +57,24 @@ const sections = [
 ];
 
 const SectionContent = ({ id }) => {
-  if (id === 'intro') {
-    return <IntroSectionContent />;
-  }
-
-  if (id === 'summary') {
-    return <SummarySectionContent />;
-  }
-
-  // Render correct components based on ID
-  if (id === 'structure') { return <OrgChart />; }
-  if (id === 'market-study') { return <MarketStudy />; }
-  if (id === 'pricing') { return <Pricing />; }
-  if (id === 'legal') { return <LegalStudy />; }
-  if (id === 'technical') { return <TechnicalStudy />; }
-  if (id === 'hr') { return <HumanStructure />; } 
-  if (id === 'financials') { return <FinancialEconomicStudy />; } 
-  if (id === 'app') { return <WebAppSection />; }
-  if (id === 'risks') { return <RisksAndSolutions />; } 
-  if (id === 'monthly-results') { return <MonthlyResults />; }
-  if (id === 'annual-summary') { return <AnnualSummary />; }
-  if (id === 'action-plan') { return <ActionPlan />; }
-  if (id === 'field-study-locations') { return <FieldStudy />; }
-  if (id === 'field-studies-main') { return <FieldStudies />; }
-  if (id === 'model-summary') { return <ModelSummary />; }
-  if (id === 'indicators') { return <KeyMetrics />; } 
+  if (id === 'intro') return <IntroSectionContent />;
+  if (id === 'summary') return <SummarySectionContent />;
+  if (id === 'structure') return <OrgChart />; 
+  if (id === 'market-study') return <MarketStudy />; 
+  if (id === 'pricing') return <Pricing />; 
+  if (id === 'legal') return <LegalStudy />; 
+  if (id === 'technical') return <TechnicalStudy />; 
+  if (id === 'hr') return <HumanStructure />; 
+  if (id === 'financials') return <FinancialEconomicStudy />; 
+  if (id === 'app') return <WebAppSection />; 
+  if (id === 'risks') return <RisksAndSolutions />; 
+  if (id === 'monthly-results') return <MonthlyResults />; 
+  if (id === 'annual-summary') return <AnnualSummary />; 
+  if (id === 'action-plan') return <ActionPlan />; 
+  if (id === 'field-study-locations') return <FieldStudy />; 
+  if (id === 'field-studies-main') return <FieldStudies />; 
+  if (id === 'model-summary') return <ModelSummary />; 
+  if (id === 'indicators') return <KeyMetrics />; 
 
   return <div><p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة.</p></div>;
 };
@@ -152,7 +145,6 @@ function App() {
       <aside className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header"><button onClick={toggleSidebar} className="close-btn"><X size={24} /></button></div>
         <ul className="sidebar-links">
-          {/* eslint-disable-next-line no-unused-vars */}
           {sections.map(({ id, title, icon: IconComponent, type }) => {
             if (type === 'divider') {
               return <li key={id} className="sidebar-divider"></li>;
@@ -170,7 +162,6 @@ function App() {
       {isSidebarOpen && <div className="overlay" onClick={toggleSidebar}></div>}
 
       <main className="main-content">
-        { }
         {sections.map(({ id, title, icon: IconComponent, type }) => {
           if(type === 'divider') return null;
           if(id === 'cover') return (
@@ -184,10 +175,9 @@ function App() {
           return (
             <AnimatedSection key={id} id={id} className={cardClassName}>
               <motion.div variants={contentVariants}>
-                 {/* eslint-disable-next-line no-unused-vars */}
                 <AnimatedTitle title={title} icon={IconComponent} /> 
                 <motion.div className="section-content">
-                  {id === 'financials' ? <FinancialEconomicStudy /> : <SectionContent id={id} />}
+                  <SectionContent id={id} />
                 </motion.div>
               </motion.div>
             </AnimatedSection>
