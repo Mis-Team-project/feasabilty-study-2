@@ -85,34 +85,44 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    width: 100vw; /* Use vw to be sure it covers full width */
+    height: 100vh; /* Use vh to be sure it covers full height */
+    background-color: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Increased z-index to appear above navbar/sidebar */
+    z-index: 9999;
+    padding: 1rem; /* Add padding to the backdrop */
 }
 
 .detail-view-container {
-    width: 90%;
-    max-width: 900px;
+    width: calc(100% - 2rem); /* Ensure padding from screen edges */
+    max-width: 950px; /* Keep a max-width for larger screens */
+    height: auto; /* Height will be content-driven */
+    max-height: calc(100vh - 4rem); /* Max height with padding */
     background: #fff;
     border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack header, content, footer */
+    overflow: hidden; /* Hide overflow from the main container */
 }
 
 .detail-view-header {
-    padding: 30px 40px;
+    padding: 25px 35px;
     position: relative;
+    border-bottom: 1px solid #e2e8f0;
+    flex-shrink: 0; /* Header should not shrink */
 }
+
 
 .detail-close-button {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(255, 255, 255, 0.5);
+    top: 15px;
+    left: 15px; /* Adjusted for RTL */
+    background: #f1f5f9;
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -122,29 +132,59 @@
     justify-content: center;
     align-items: center;
     color: #333;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.detail-close-button:hover {
+    background-color: #e2e8f0;
+    transform: rotate(90deg);
+}
+
+/* REMOVED old suggestion-button styles */
+
+/* NEW: This will be the scrollable content area */
+.detail-view-content {
+    overflow-y: auto; /* Make only this part scrollable */
+    padding: 25px 35px; /* Add padding to the content */
+    flex-grow: 1; /* Allow this area to grow and fill available space */
+}
+
+/* NEW: Footer styles */
+.detail-view-footer {
+    flex-shrink: 0; /* Footer should not shrink */
+    padding: 15px 35px;
+    border-top: 1px solid #e2e8f0;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: flex-start; /* Align button to the left (start for LTR, works for RTL with direction) */
 }
 
 .suggestion-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: #fff;
-    color: #007bff;
-    border: 1px solid #007bff;
+    background: #eef2ff;
+    color: #4338ca;
+    border: none;
     border-radius: 20px;
-    padding: 8px 15px;
+    padding: 10px 20px;
     font-weight: 600;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    font-size: 0.95rem;
+    transition: background-color 0.2s, transform 0.2s;
 }
+
+.suggestion-button:hover {
+    background-color: #e0e7ff;
+    transform: translateY(-2px);
+}
+
 
 .detail-items-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 30px;
+    gap: 25px;
+    /* Removed padding from here as it's on the parent now */
 }
 
 .detail-item-card {
@@ -152,6 +192,7 @@
     padding: 25px;
     border-radius: 12px;
     text-align: center;
+    border: 1px solid #eef2f7;
 }
 
 .detail-item-icon {
@@ -395,7 +436,7 @@
     .detail-view-header {
         padding: 20px;
     }
-    .detail-close-button, .suggestion-button {
+    .detail-close-button {
         top: 10px;
         width: 35px;
         height: 35px;

@@ -155,19 +155,29 @@ const DetailView = ({ categoryId, onClose, onOpenSuggestionModal }) => {
             <motion.div className="detail-view-header" style={{ backgroundColor: category.bgColor }}>
                  <div className="category-card-icon" style={{ color: category.iconColor }}>{category.icon}</div>
                 <h3 className="category-card-label">{category.label}</h3>
-                 {categoryId === 'location' && (<motion.button className="suggestion-button" onClick={onOpenSuggestionModal} whileHover={{ scale: 1.05 }}><Lightbulb size={18} /><span>عرض الاقتراحات</span></motion.button>)}
                 <p className="category-card-description">{category.description}</p>
                 <motion.button className="detail-close-button" onClick={onClose} whileHover={{ scale: 1.1, rotate: 90 }}><X /></motion.button>
             </motion.div>
-            <div className="detail-items-grid">
-                {category.items.map((item, index) => (
-                    <motion.div key={index} className="detail-item-card" custom={index} variants={detailVariants} initial="hidden" animate="visible">
-                         <div className="detail-item-icon" style={{ backgroundColor: category.bgColor, color: category.iconColor }}>{item.icon}</div>
-                        <h4 className="detail-item-title">{item.title}</h4>
-                        <p className="detail-item-description">{item.description}</p>
-                    </motion.div>
-                ))}
+            <div className="detail-view-content">
+                <div className="detail-items-grid">
+                    {category.items.map((item, index) => (
+                        <motion.div key={index} className="detail-item-card" custom={index} variants={detailVariants} initial="hidden" animate="visible">
+                             <div className="detail-item-icon" style={{ backgroundColor: category.bgColor, color: category.iconColor }}>{item.icon}</div>
+                            <h4 className="detail-item-title">{item.title}</h4>
+                            <p className="detail-item-description">{item.description}</p>
+                        </motion.div>
+                    ))}
+                </div>
             </div>
+            {/* NEW: Footer for the suggestion button */}
+            {categoryId === 'location' && (
+                <div className="detail-view-footer">
+                    <motion.button className="suggestion-button" onClick={onOpenSuggestionModal} whileHover={{ scale: 1.05 }}>
+                        <Lightbulb size={18} />
+                        <span>عرض الاقتراحات</span>
+                    </motion.button>
+                </div>
+            )}
         </motion.div>
     );
 };
