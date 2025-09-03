@@ -352,32 +352,98 @@
     .operational-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
+    .detail-items-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .detail-view-container {
+        width: 95%;
+        margin: 1rem;
+    }
 }
 
 @media (max-width: 768px) {
+    .technical-study-section {
+        padding: 40px 15px;
+    }
+    .technical-study-header h2 {
+        font-size: 2.2rem;
+    }
+    .technical-study-header h3 {
+        font-size: 1.8rem;
+    }
+    .technical-study-header p {
+        font-size: 1rem;
+    }
     .operational-cards-container {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
     .categories-container {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
     .service-item {
-        flex-direction: row; /* Keep horizontal layout for services */
-        align-items: flex-start;
+        flex-direction: column; 
+        align-items: center;
+        text-align: center;
+        padding: 15px;
     }
-}
-
-@media (max-width: 480px) {
+    .service-icon {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+    .detail-view-header {
+        padding: 20px;
+    }
+    .detail-close-button, .suggestion-button {
+        top: 10px;
+        width: 35px;
+        height: 35px;
+        font-size: 0.8rem;
+    }
+    .detail-items-grid {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+    .op-card {
+        padding: 25px;
+    }
     .op-card-title {
         font-size: 1.4rem;
     }
     .op-card-content {
         font-size: 0.9rem;
     }
+    .op-card-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    .suggestion-modal-content, .chart-modal-content {
+        padding: 20px;
+    }
+    .suggestion-modal-header h3, .chart-modal-header h3 {
+        font-size: 1.2rem;
+    }
+    .suggestion-table th, .suggestion-table td {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .technical-study-header h2 {
+        font-size: 1.8rem;
+    }
+    .technical-study-header h3 {
+        font-size: 1.5rem;
+    }
+    .category-card-label {
+        font-size: 1.3rem;
+    }
     .service-name {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
     .service-description {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 }

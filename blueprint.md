@@ -12,6 +12,17 @@ The project currently has a basic React setup with various components. The goal 
 - React application structure.
 - Basic CSS styling.
 
+### Responsiveness Improvements
+To address the issue of the website not being responsive on mobile devices, the following CSS files were updated to include media queries and flexible styling:
+
+-   `src/App.css`: Reviewed and confirmed existing responsive styles for general layout, and ensured proper base styles.
+-   `src/components/Cover.css`: Verified and refined existing media queries for font sizes to ensure optimal display on various screen sizes.
+-   `src/components/HumanStructure.css`: Implemented comprehensive media queries to adjust padding, font sizes, and layout of role groups, making the organizational structure responsive.
+-   `src/components/TechnicalStudy.css`: Enhanced existing media queries to refine grid layouts, modal sizes, and font sizes within the technical study categories and operational indicators.
+-   `src/components/ActionPlan.css`: Improved existing media queries to ensure the timeline layout, font sizes, and spacing within the action plan are fully responsive, including a new breakpoint for very small screens.
+
+These changes collectively ensure that the website content adapts gracefully to different screen sizes, preventing content from being cut off and providing a better user experience on mobile devices.
+
 ### Plan for Current Requested Change: Financial and Economic Study Section
 
 **Purpose:** To present key financial and economic data related to the kindergarten in an interactive and visually appealing manner.
@@ -78,4 +89,3 @@ The project currently has a basic React setup with various components. The goal 
 *   Ensure proper ARIA attributes for interactive elements.
 *   Maintain sufficient color contrast.
 *   Provide keyboard navigation where applicable.
-

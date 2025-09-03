@@ -150,6 +150,14 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .action-plan-header h2 {
+    font-size: 2rem;
+  }
+
+  .action-plan-header p {
+    font-size: 1rem;
+  }
+
   .horizontal-timeline {
     flex-direction: column;
     padding: 0 1rem;
@@ -171,18 +179,69 @@
     align-items: flex-start;
     margin-left: 0;
     margin-bottom: 2rem;
-    flex-basis: auto;
+    flex-basis: auto; /* Allow item to take necessary width */
+    width: 100%; /* Take full width */
   }
 
   .timeline-content {
     width: calc(100% - 50px);
     margin-bottom: 0;
     margin-right: 20px;
+    padding: 1rem;
   }
 
   .timeline-dot {
     top: 2rem;
     right: calc(1.5rem - 8px); /* center on the line */
     transform: none;
+  }
+
+  .timeline-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .timeline-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .timeline-phase {
+    font-size: 1.1rem;
+  }
+
+  .timeline-activities {
+    font-size: 0.9rem;
+    padding-right: 1rem;
+  }
+
+  .timeline-activities li::before {
+    right: -1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .action-plan-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .action-plan-header p {
+    font-size: 0.9rem;
+  }
+
+  .timeline-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .timeline-content {
+    padding: 0.8rem;
+  }
+
+  .timeline-phase {
+    font-size: 1rem;
+  }
+
+  .timeline-activities {
+    font-size: 0.85rem;
   }
 }
