@@ -70,20 +70,31 @@ const SummaryModal = ({ isOpen, onClose, data }) => {
     legend: {
       position: 'bottom',
       labels: {
-        colors: '#fff'
+        colors: '#333' // Corrected: Dark text for legend
       }
     },
     tooltip: {
       y: {
         formatter: (val) => `${val.toLocaleString()} ر.س`
-      }
+      },
+      style: { color: '#333' } // Corrected: Dark text for tooltip
     },
     dataLabels: {
       enabled: true,
-      // eslint-disable-next-line no-unused-vars
       formatter: function (_val, opts) {
           return opts.w.config.series[opts.seriesIndex].toLocaleString()
       },
+      style: {
+        colors: ['#fff'], // White text on slices
+      },
+      dropShadow: {
+        enabled: true,
+        top: 1,
+        left: 1,
+        blur: 1,
+        color: '#000',
+        opacity: 0.45
+      }
     },
     stroke: {
       show: false,
@@ -127,7 +138,6 @@ const FinancialEconomicStudy = () => {
   const [activeChart, setActiveChart] = useState('pie');
 
   const openModal = (data) => {
-    // Exclude the revenue table from opening a modal
     if (data.title === expectedRevenue.title) return;
     setModalData(data);
     setIsModalOpen(true);
@@ -135,7 +145,7 @@ const FinancialEconomicStudy = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setTimeout(() => setModalData(null), 300); // Delay to allow for exit animation
+    setTimeout(() => setModalData(null), 300); // Delay for exit animation
   };
 
   const tableVariants = {
@@ -157,19 +167,19 @@ const FinancialEconomicStudy = () => {
             chart: { type: 'pie', fontFamily: 'Tajawal, sans-serif', toolbar: { show: false } },
             labels: ['تكاليف تأسيس', 'تكاليف تشغيل سنوية'],
             colors: ['#e74c3c', '#3498db'],
-            legend: { position: 'bottom', labels: { colors: '#fff' } },
-            tooltip: { y: { formatter: (val) => `${val.toLocaleString()} ر.س` } },
+            legend: { position: 'bottom', labels: { colors: '#333' } }, // Dark text for legend
+            tooltip: { y: { formatter: (val) => `${val.toLocaleString()} ر.س` }, theme: 'light' }, // Use light theme for tooltip
         },
         series: [establishmentCosts.total, monthlyOperation.total * 12],
     },
     bar: {
         options: {
             chart: { type: 'bar', fontFamily: 'Tajawal, sans-serif', stacked: true, toolbar: { show: false } },
-            xaxis: { categories: ['التكاليف والإيرادات'], labels: { style: { colors: '#fff' } } },
-            yaxis: { labels: { style: { colors: '#fff' } } },
+            xaxis: { categories: ['التكاليف والإيرادات'], labels: { style: { colors: '#333' } } },
+            yaxis: { labels: { style: { colors: '#333' } } },
             colors: ['#e74c3c', '#3498db', '#2ecc71'],
-            legend: { position: 'top', horizontalAlign: 'right', labels: { colors: '#fff' } },
-            tooltip: { y: { formatter: (val) => `${val.toLocaleString()} ر.س` } },
+            legend: { position: 'top', horizontalAlign: 'right', labels: { colors: '#333' } },
+            tooltip: { y: { formatter: (val) => `${val.toLocaleString()} ر.س` }, theme: 'light' }, // Use light theme
             plotOptions: { bar: { horizontal: false } },
         },
         series: [{ name: 'تأسيس', data: [establishmentCosts.total] }, { name: 'تشغيل سنوي', data: [monthlyOperation.total * 12] }, { name: 'إيراد متوقع (150 طفل)', data: [1700 * 150 * 12] }],
@@ -179,25 +189,25 @@ const FinancialEconomicStudy = () => {
             chart: { type: 'line', fontFamily: 'Tajawal, sans-serif', toolbar: { show: false } },
             xaxis: { 
                 categories: Array.from({ length: 12 }, (_, i) => `شهر ${i + 1}`),
-                labels: { style: { colors: '#fff' } }
+                labels: { style: { colors: '#333' } } 
             },
-            yaxis: { title: { text: 'المبلغ (ر.س)', style: { color: '#fff' } }, labels: { style: { colors: '#fff' } } },
+            yaxis: { title: { text: 'المبلغ (ر.س)', style: { color: '#333' } }, labels: { style: { colors: '#333' } } },
             colors: ['#2ecc71', '#e74c3c', '#f1c40f'],
             stroke: { curve: 'smooth', width: 3 },
             markers: { size: 5 },
-            legend: { position: 'top', horizontalAlign: 'right', labels: { colors: '#fff' } },
-            tooltip: { x: { format: 'dd/MM/yy HH:mm' } },
+            legend: { position: 'top', horizontalAlign: 'right', labels: { colors: '#333' } },
+            tooltip: { x: { format: 'dd/MM/yy HH:mm' }, theme: 'light' }, // Use light theme
             annotations: {
                 points: [{
-                    x: 'شهر 8', // Approximate based on 150 children
+                    x: 'شهر 8',
                     y: 1700 * 150,
                     marker: { size: 8, fillColor: '#fff', strokeColor: '#f1c40f', radius: 2 },
-                    label: { borderColor: '#f1c40f', style: { color: '#000', background: '#f1c40f' }, text: 'نقطة التعادل' }
+                    label: { borderColor: '#f1c40f', style: { color: '#fff', background: '#f1c40f' }, text: 'نقطة التعادل' }
                 }]
             }
         },
         series: [
-            { name: 'الإيرادات', data: Array.from({ length: 12 }, (_, i) => (1700 * (i + 1) * 15)) }, // Simplified linear growth
+            { name: 'الإيرادات', data: Array.from({ length: 12 }, (_, i) => (1700 * (i + 1) * 15)) }, 
             { name: 'التكاليف', data: Array.from({ length: 12 }, (_, i) => monthlyOperation.total * (i + 1)) },
         ],
     },
