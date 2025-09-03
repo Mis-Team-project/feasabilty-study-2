@@ -187,7 +187,7 @@ function App() {
                  {/* eslint-disable-next-line no-unused-vars */}
                 <AnimatedTitle title={title} icon={IconComponent} /> 
                 <motion.div className="section-content">
-                  <SectionContent id={id} />
+                  {id === 'financials' ? <FinancialEconomicStudy /> : <SectionContent id={id} />}
                 </motion.div>
               </motion.div>
             </AnimatedSection>

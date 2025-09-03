@@ -1,233 +1,240 @@
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+/* FinancialEconomicStudy.css */
 
-.financial-study-container {
-  direction: rtl;
-  font-family: 'Tajawal', sans-serif;
-  padding: 40px 20px;
+.financial-economic-study-container {
+    direction: rtl;
+    padding: 60px 20px;
+    background-color: var(--background-color);
+    text-align: center; /* Center the overall container content */
 }
 
-.summary-tables-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 25px;
-  margin-bottom: 50px;
+.financial-study-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
 }
 
-.summary-table-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: #333; /* Changed from #fff to a dark color */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+.financial-study-header h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: 10px;
 }
 
-.summary-table-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.2);
+.financial-study-header p {
+    font-size: 1.15rem;
+    color: var(--text-color);
+    line-height: 1.7;
 }
 
-.table-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 15px;
+.summary-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1000px; /* Limit width for card container */
+    margin: 40px auto; /* Center the cards container */
+    padding: 0 10px;
 }
 
-.table-icon {
-  font-size: 2rem;
-  margin-left: 15px;
-  color: #2ecc71;
-  background: rgba(46, 204, 113, 0.1);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.table-header h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0;
-  color: #333; /* Explicitly set header color */
-}
-
-.table-items {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.table-items li {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 0;
-  font-size: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.table-items li:last-child {
-  border-bottom: none;
-}
-
-.item-amount {
-  font-weight: 700;
-  color: #27ae60;
-}
-
-.table-total {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.total-amount {
-  color: #27ae60;
-  font-weight: bold;
-}
-
-.summary-btn {
-  background: transparent;
-  border: 1px solid #2ecc71;
-  color: #2ecc71;
-  padding: 10px 20px;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Tajawal', sans-serif;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  margin-top: 20px;
-}
-
-.summary-btn:hover {
-  background: #2ecc71;
-  color: #fff;
-  box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
-}
-
-
-/* Modal Styles */
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  direction: ltr;
-}
-
-.modal-content {
-  background: #fff;
-  padding: 30px;
-  border-radius: 15px;
-  width: 90%;
-  max-width: 600px;
-  position: relative;
-  direction: rtl;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.modal-close-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  color: #333;
-  cursor: pointer;
-  font-size: 1.5rem;
-}
-
-.modal-content h3 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #2ecc71;
-  font-size: 1.8rem;
-}
-
-.chart-container {
-  width: 100%;
-  height: auto;
-}
-
-/* Interactive Charts Section */
-.interactive-charts-section {
-    background: #f9f9f9;
-    border-radius: 15px;
+.summary-card {
+    background-color: var(--card-bg);
     padding: 30px;
-    margin-top: 40px;
-    border: 1px solid #eee;
-}
-
-.chart-controls {
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid transparent;
 }
 
-.chart-controls button {
-    background: #fff;
-    border: 1px solid #ddd;
-    color: #555;
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: 'Tajawal', sans-serif;
-    font-size: 1rem;
+.summary-card.active {
+    border-color: var(--secondary-color); /* Highlight active card */
+    box-shadow: 0 8px 25px rgba(42, 105, 172, 0.2); /* Deeper shadow for active */
+}
+
+.card-header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-direction: row-reverse; /* For RTL icon on right */
 }
 
-.chart-controls button:hover {
-    background: #f0f0f0;
-    border-color: #ccc;
+.card-icon {
+    color: var(--secondary-color);
+    background-color: var(--highlight-bg);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.chart-controls button.active {
-    background: #2ecc71;
-    color: #fff;
-    border-color: #2ecc71;
-    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+.card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.card-total {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    margin-bottom: 25px;
+}
+
+.view-chart-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.view-chart-button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Chart Modal Styles */
+.chart-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.chart-modal-content {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.chart-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--table-border-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.chart-modal-header h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+.chart-modal-header .close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.chart-modal-header .close-btn:hover {
+    background-color: var(--highlight-bg);
 }
 
 .chart-display-area {
-    min-height: 400px;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7fafc; /* Light background for chart area */
+    border-radius: 10px;
+    padding: 20px;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .financial-study-container {
-    padding: 20px 10px;
-  }
+.placeholder-chart-pie, .placeholder-chart-bar {
+    font-size: 1.5rem;
+    color: #666;
+    text-align: center;
+}
 
-  .chart-controls button {
-      font-size: 0.9rem;
-      padding: 8px 15px;
-  }
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .financial-economic-study-container {
+        padding: 40px 15px;
+    }
+    .financial-study-header h2 {
+        font-size: 2.2rem;
+    }
+    .financial-study-header p {
+        font-size: 1rem;
+    }
+    .summary-cards-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 400px; /* Adjust max-width for single column */
+    }
+    .summary-card {
+        padding: 25px;
+    }
+    .card-title {
+        font-size: 1.5rem;
+    }
+    .card-total {
+        font-size: 2rem;
+    }
+    .view-chart-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    .chart-modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+    .chart-modal-header h3 {
+        font-size: 1.4rem;
+    }
+    .chart-display-area {
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .financial-study-header h2 {
+        font-size: 1.8rem;
+    }
+    .financial-study-header p {
+        font-size: 0.9rem;
+    }
+    .card-title {
+        font-size: 1.3rem;
+    }
+    .card-total {
+        font-size: 1.8rem;
+    }
+    .view-chart-button {
+        font-size: 0.85rem;
+        padding: 8px 15px;
+    }
+    .chart-modal-header h3 {
+        font-size: 1.2rem;
+    }
 }

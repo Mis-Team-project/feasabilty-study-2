@@ -20,7 +20,13 @@
 body { margin: 0; font-family: var(--font-family); direction: rtl; background-color: var(--background-color); color: var(--text-color); line-height: 1.8; }
 
 /* --- General Layout & Typography --- */
-.main-content { padding: 2rem 0; display: flex; flex-direction: column; align-items: center; }
+.main-content { 
+  padding: 2rem 0; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  width: 100%; /* Ensure main-content takes full width */
+}
 .page-card { 
   background: var(--card-bg); 
   border-radius: 12px; 
@@ -29,8 +35,12 @@ body { margin: 0; font-family: var(--font-family); direction: rtl; background-co
   width: 90%; 
   max-width: 880px; 
   padding: 3rem 3.5rem; 
-  position: relative; /* Needed for z-index to work */
-  z-index: 1; /* Default z-index */
+  position: relative; 
+  z-index: 1; 
+  margin-left: auto; /* Force centering */
+  margin-right: auto; /* Force centering */
+  /* Remove text-align: right if present and conflicting with centering */
+  text-align: initial; /* Reset text alignment to default for card content */
 }
 
 /* When a role group inside a page-card is hovered, elevate the entire page-card */
@@ -38,14 +48,25 @@ body { margin: 0; font-family: var(--font-family); direction: rtl; background-co
   z-index: 20;
 }
 
-
-.section-title { display: flex; align-items: center; justify-content: center; gap: 1rem; font-size: 2rem; font-weight: 600; color: var(--primary-color); margin-top: 0; margin-bottom: 2rem; }
+.section-title { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 1rem; 
+  font-size: 2rem; 
+  font-weight: 600; 
+  color: var(--primary-color); 
+  margin-top: 0; 
+  margin-bottom: 2rem; 
+  width: 100%; /* Ensure title also takes full width to allow centering */
+}
 .title-icon { color: var(--secondary-color); width: 40px; height: 40px; }
 .section-content { font-size: 1.1rem; line-height: 1.9; font-weight: 400; color: #4a5568; }
 
 /* --- Special Section Card Styles --- */
 .special-section-card {
     padding: 2rem 1.5rem;
+    text-align: initial; /* Reset text alignment for special cards */
 }
 
 /* --- Navbar, Sidebar --- */
