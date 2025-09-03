@@ -23,7 +23,14 @@ To address the issue of the website not being responsive on mobile devices, the 
 
 These changes collectively ensure that the website content adapts gracefully to different screen sizes, preventing content from being cut off and providing a better user experience on mobile devices.
 
-### Plan for Current Requested Change: Financial and Economic Study Section
+### Centering Improvements
+To address the issue of content not being centered, the following CSS files were updated:
+
+-   `src/App.css`: Changed `justify-content: flex-end;` to `justify-content: center;` for `.section-title` to center the section titles.
+-   `src/components/HumanStructure.css`: Added `max-width: 1200px;` and `margin: 0 auto;` to `.human-structure-container` to center the main container. Also, added `display: flex; flex-direction: column; align-items: center;` to `.level` and `justify-content: center; width: 100%;` to `.level-roles` to center the content within each organizational level.
+-   `src/components/TechnicalStudy.css`: Confirmed that `max-width` and `margin: 0 auto;` are already applied to main containers (`.technical-study-section`, `.technical-study-header`, `.categories-container`, `.operational-indicators-section`), and `display: flex; justify-content: center; align-items: center;` is applied to backdrops, ensuring content is correctly centered.
+
+## Plan for Current Requested Change: Financial and Economic Study Section
 
 **Purpose:** To present key financial and economic data related to the kindergarten in an interactive and visually appealing manner.
 

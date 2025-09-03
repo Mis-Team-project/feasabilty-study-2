@@ -6,6 +6,8 @@
     direction: rtl; /* Right-to-left layout */
     text-align: right;
     overflow: hidden;
+    max-width: 1200px; /* Limit width for centering */
+    margin: 0 auto; /* Center the container */
 }
 
 .human-structure-header h2 {
@@ -25,6 +27,9 @@
 .level {
     margin-bottom: 50px;
     position: relative;
+    display: flex; /* Allow content to center */
+    flex-direction: column;
+    align-items: center; /* Center level content */
 }
 
 .level::before {
@@ -59,6 +64,8 @@
     gap: 20px;
     padding-right: 50px; /* Indent roles from the main line */
     position: relative;
+    justify-content: center; /* Center roles within the level */
+    width: 100%; /* Take full width to allow centering */
 }
 
 .role-group-wrapper {

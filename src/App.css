@@ -39,7 +39,7 @@ body { margin: 0; font-family: var(--font-family); direction: rtl; background-co
 }
 
 
-.section-title { display: flex; align-items: center; justify-content: flex-end; gap: 1rem; font-size: 2rem; font-weight: 600; color: var(--primary-color); margin-top: 0; margin-bottom: 2rem; }
+.section-title { display: flex; align-items: center; justify-content: center; gap: 1rem; font-size: 2rem; font-weight: 600; color: var(--primary-color); margin-top: 0; margin-bottom: 2rem; }
 .title-icon { color: var(--secondary-color); width: 40px; height: 40px; }
 .section-content { font-size: 1.1rem; line-height: 1.9; font-weight: 400; color: #4a5568; }
 
@@ -92,7 +92,7 @@ body { margin: 0; font-family: var(--font-family); direction: rtl; background-co
 /* --- Responsive & Print Styles --- */
 @media (max-width: 768px) {
   .page-card { padding: 2.5rem; }
-  .section-title { font-size: 1.75rem; }
+  .section-title { font-size: 1.75rem; justify-content: center; /* Ensure centering on mobile */ }
   .summary-table tr { display: flex; flex-direction: column; margin-bottom: 1rem; border: 1px solid var(--table-border-color); border-radius: 8px; }
   .summary-table td { width: 100% !important; border-bottom: 1px solid var(--table-border-color); }
   .summary-table td:first-child { background-color: #f7fafc; border-bottom: 1px solid var(--table-border-color); }
