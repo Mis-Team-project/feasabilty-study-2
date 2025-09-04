@@ -5,6 +5,7 @@ import {
   Users, DollarSign, Route, TrendingUp, AlertTriangle, Trophy, 
   Building2, Scale, GraduationCap, MapPin
 } from 'lucide-react';
+import RiyadhMap from './RiyadhMap'; // Import RiyadhMap component
 import './FieldStudy.css';
 
 const locationsData = [
@@ -62,6 +63,7 @@ const FieldStudy = () => {
 
   return (
     <div className="field-study-container">
+      <RiyadhMap /> {/* Render RiyadhMap component here */}
       <div className="field-study-header">
         <h2>ترشيح المواقع الأنسب</h2>
         <p>تحليل لأبرز الأحياء المرشحة في شمال الرياض بناءً على معايير ديموغرافية واقتصادية.</p>

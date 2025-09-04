@@ -1,0 +1,145 @@
+.floating-controls-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px; /* Position to the bottom right */
+  left: unset; /* Remove left positioning */
+  z-index: 1000; /* Ensure it's above other content */
+  direction: rtl; /* For Arabic text alignment */
+}
+
+.floating-button {
+  background-color: #6a0dad; /* Primary purple color */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.floating-button:hover {
+  background-color: #7b2eff; /* Lighter purple on hover */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.floating-panel {
+  position: absolute;
+  bottom: 80px; /* Position above the button */
+  right: 0;   /* Align with the right of the button (which is now on the right side of the screen) */
+  left: unset; /* Remove left positioning if it was there */
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.panel-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.panel-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.option-group {
+  display: flex;
+  gap: 10px;
+}
+
+.option-button {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  color: #555;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.option-button:hover {
+  background-color: #e0e0e0;
+}
+
+.option-button.active {
+  background-color: #6a0dad; /* Active primary color */
+  color: white;
+  border-color: #6a0dad;
+  box-shadow: 0 2px 8px rgba(106, 13, 173, 0.3);
+}
+
+.year-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 8px;
+  background: #ddd;
+  outline: none;
+  border-radius: 4px;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+
+.year-slider:hover {
+  opacity: 1;
+}
+
+.year-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #6a0dad;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.year-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #6a0dad;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.slider-value {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #444;
+  margin-top: 5px;
+}
+
+.empty-space-text {
+  font-size: 0.9rem;
+  color: #777;
+  text-align: center;
+  padding: 10px 0;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px dashed #e0e0e0;
+}

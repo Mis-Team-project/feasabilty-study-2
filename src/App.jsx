@@ -29,6 +29,7 @@ import AnimatedTitle from './components/AnimatedTitle';
 import Cover from './components/Cover'; 
 import IntroSectionContent from './components/IntroSectionContent'; 
 import SummarySectionContent from './components/SummarySectionContent';
+import FloatingControls from './components/FloatingControls'; // Import FloatingControls
 
 import './App.css';
 
@@ -184,6 +185,7 @@ function App() {
           )
         })}
       </main>
+      <FloatingControls /> {/* Add FloatingControls here */}
       <Footer />
     </div>
   );
