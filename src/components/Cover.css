@@ -6,14 +6,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Set the background image directly on the container */
-  background-image: url('../assets/cover-background.png');
+  /* Use the CSS variable for the background image */
+  background-image: var(--cover-background-image);
   background-size: cover; /* Cover the entire container */
   background-position: center; /* Center the background image */
   background-repeat: no-repeat; /* Do not repeat the image */
 }
-
-/* Removed .cover-image styles as it's no longer an <img> tag */
 
 .cover-overlay {
   position: absolute;

@@ -1,72 +1,44 @@
-# Project Blueprint: Kindergarten Financial and Economic Study
+# Project Blueprint
 
 ## Overview
-This document outlines the development of an interactive "Financial and Economic Study" section for a kindergarten website. The section is designed to be modern, clean, fully responsive, and visually engaging, featuring summary cards, detailed modals, and dynamic ApexCharts, with a strong focus on user experience and readability in Arabic (RTL).
+This project is a feasibility study for a kindergarten and preschool in Riyadh, focusing on an early childhood center providing innovative care and education. The application is built with React and uses modern web development practices.
 
-## Detailed Outline
+## Style and Design
+The application features a modern and clean design with a focus on readability and user experience. It uses a responsive layout to adapt to different screen sizes. Visual elements include expressive typography, a vibrant color palette, subtle textures, and multi-layered drop shadows for depth. Interactive components incorporate icons and elegant color effects.
 
-### Current State
-The project has a well-structured React application. The latest major update involved a complete rebuild of the "Financial and Economic Study" section to be highly interactive and data-driven.
+## Features
+- **Cover Page:** Displays the project title and subtitle with a background image.
+- **Navigation Bar:** A responsive navigation bar with a toggleable sidebar for easy access to different sections.
+- **Animated Sections:** Sections of the report are animated to provide a dynamic user experience.
+- **Project Sections:** The report is divided into several key sections, each addressing a specific aspect of the feasibility study:
+    - Introduction to the project and its importance according to Vision 2030
+    - Executive Summary
+    - Administrative and Organizational Structure
+    - Market Study - North Riyadh
+    - Reference Pricing
+    - Legal and Regulatory Study
+    - Technical and Operational Study
+    - Human Structure
+    - Economic and Financial Study (Estimated)
+    - Website and Application Creation
+    - Risks and Solutions
+    - Monthly Results (First Year - Brief)
+    - Annual Summary (3 Years)
+    - Model Summary
+    - Key Indicators
+    - Field Studies
+    - Operational Action Plan
+    - Recommendation of Most Suitable Locations
+- **Footer:** Contains copyright information.
 
-### Features Implemented
+## Current Change: Fix Cover Image Display
 
--   **React Application Structure:** Robust and component-based.
--   **Comprehensive Responsiveness:** Media queries and flexible layouts are applied across the application, ensuring a seamless experience on all devices.
--   **Centered and Modern Layout:** Consistent use of modern CSS for centered, clean, and professional layouts.
+### Plan
+The cover image was not appearing due to an issue with how Vite handles relative paths in CSS files. To fix this, the image will be imported directly into the `Cover.jsx` component, and its URL will be passed as a CSS variable to the `cover-container` div. The `Cover.css` file will then use this CSS variable to set the background image.
 
-### New: Financial and Economic Study Section (Interactive & Modern)
-
-This section was completely redesigned and implemented to provide a rich, interactive financial overview.
-
-**Purpose:** To present key financial data (establishment costs, operational costs, and revenue projections) in a visually appealing and easily digestible format.
-
-**Key Components & Features:**
-
-1.  **`FinancialEconomicStudy.jsx` (Main Component):**
-    *   Acts as the central container for this entire section.
-    *   Manages the state for the modal window visibility and the data passed to it.
-    *   Integrates all sub-components into a cohesive unit.
-
-2.  **`FinancialEconomicStudy.css` (Styling):**
-    *   A dedicated stylesheet that defines a modern color palette (`--cool-blue`, `--vibrant-green`, etc.).
-    *   Styles for summary cards, including hover effects (`transform`, `box-shadow`) and `border-radius`.
-    *   Defines the look and feel of the interactive charts, buttons, and the modal window, ensuring a consistent and polished design.
-    *   All styles are written to be fully compatible with a Right-to-Left (RTL) layout.
-
-3.  **`AnimatedNumber.jsx` (Dynamic Number Display):**
-    *   A reusable component that uses `framer-motion` to animate numbers, making financial data feel more dynamic and engaging.
-    *   Triggers the animation when the component comes into view (`useInView`).
-
-4.  **Summary Cards (`SummaryTableCard`):**
-    *   Three distinct cards for **"تكاليف التأسيس"**, **"التشغيل الشهري"**, and **"الإيرادات المتوقعة"**.
-    *   Each card features a `lucide-react` icon, a list of detailed items, and animated numbers for costs.
-    *   The cost-related cards include a **"عرض التفاصيل"** button.
-
-5.  **Modal with Donut Chart (`SummaryModal`):**
-    *   Clicking "عرض التفاصيل" opens a sleek modal window (`framer-motion` for animations).
-    *   The modal displays a **Donut Chart** (`react-apexcharts`) visualizing the cost breakdown for the selected category.
-    *   Provides a clear, focused view of the data.
-
-6.  **Interactive Charts Section (`InteractiveChartsSection`):**
-    *   A powerful, multi-chart container allowing users to switch between different financial perspectives.
-    *   **Chart Toggles:** Three buttons to switch between:
-        *   **توزيع التكاليف (Pie Chart):** Compares total establishment costs vs. annual operational costs.
-        *   **مقارنة شاملة (Bar Chart):** A stacked bar chart comparing establishment costs, annual operational costs, and projected annual revenue at the break-even point.
-        *   **نقطة التعادل (Line Chart):** A line chart tracking cumulative revenue vs. cumulative costs over 12 months, with an annotation highlighting the approximate break-even point.
-    *   Uses `AnimatePresence` from `framer-motion` for smooth, animated transitions between charts.
-
-**Data & Styling:**
-
--   **Data:** All financial figures and labels are embedded within `FinancialEconomicStudy.jsx` as structured objects.
--   **Color Palette:**
-    *   **Primary:** `#4A90E2` (Cool Blue)
-    *   **Secondary:** `#F4F5F7` (Light Gray)
-    *   **Accent:** `#50E3C2` (Vibrant Green)
-    *   **Text:** `#333333` (Dark Charcoal)
--   **Design:** The design emphasizes clarity through clean typography, soft shadows, and a well-defined visual hierarchy.
-
-## Accessibility (A11Y) Standards
-
-*   Sufficient color contrast is maintained for readability.
-*   Interactive elements like buttons and modals are designed to be intuitive.
-*   Chart tooltips enhance data understanding.
+### Steps
+1.  **Modify `src/components/Cover.jsx`:**
+    - Import `cover-background.png` directly: `import coverBackground from '../assets/cover-background.png';`
+    - Pass the imported image URL as a CSS variable to the `cover-container` div using the `style` prop: `style={{ '--cover-background-image': \`url(${coverBackground})\` }}`.
+2.  **Modify `src/components/Cover.css`:**
+    - Update the `background-image` property to use the CSS variable: `background-image: var(--cover-background-image);`.
