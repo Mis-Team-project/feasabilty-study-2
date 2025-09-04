@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { SlidersHorizontal } from 'lucide-react';
+import { SlidersHorizontal, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './FloatingControls.css';
 
-const FloatingControls = () => {
+const FloatingControls = ({ theme, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [displayType, setDisplayType] = useState('summary'); // 'summary' or 'detailed'
   const [selectedYear, setSelectedYear] = useState(2025);
@@ -68,9 +68,21 @@ const FloatingControls = () => {
             </div>
 
             <div className="panel-section">
-              <h4 className="section-title">مساحة فارغة</h4>
-              {/* This section is intentionally left blank as per request */}
-              <p className="empty-space-text">هذه المساحة مخصصة لميزات مستقبلية.</p>
+              <h4 className="section-title">المظهر</h4>
+              <div className="option-group">
+                <button
+                  className={`option-button ${theme === 'light' ? 'active' : ''}`}
+                  onClick={() => theme === 'dark' && toggleTheme()}
+                >
+                  <Sun size={20} /> فاتح
+                </button>
+                <button
+                  className={`option-button ${theme === 'dark' ? 'active' : ''}`}
+                  onClick={() => theme === 'light' && toggleTheme()}
+                >
+                  <Moon size={20} /> داكن
+                </button>
+              </div>
             </div>
           </motion.div>
         )}

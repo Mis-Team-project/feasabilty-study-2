@@ -1,4 +1,3 @@
- 
 import React, { useState, useEffect, useRef } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { useAnimation, useInView, motion } from 'framer-motion';
@@ -29,7 +28,7 @@ import AnimatedTitle from './components/AnimatedTitle';
 import Cover from './components/Cover'; 
 import IntroSectionContent from './components/IntroSectionContent'; 
 import SummarySectionContent from './components/SummarySectionContent';
-import FloatingControls from './components/FloatingControls'; // Import FloatingControls
+import FloatingControls from './components/FloatingControls';
 
 import './App.css';
 
@@ -104,6 +103,7 @@ function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isNavVisible, setNavVisible] = useState(true);
   const [activeSection, setActiveSection] = useState('cover');
+  const [theme, setTheme] = useState('light'); // Add theme state
   const lastScrollY = useRef(0);
 
   const handleScroll = () => {
@@ -135,10 +135,15 @@ function App() {
     setSidebarOpen(false);
   };
 
+  // Function to toggle theme
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
   const contentVariants = { visible: { transition: { staggerChildren: 0.1 } } };
 
   return (
-    <div className="App">
+    <div className={`App ${theme}`}>
       <motion.nav className="navbar" animate={{ top: isNavVisible ? 0 : -80 }} transition={{ duration: 0.3, ease: 'easeInOut' }}>
         <div className="menu-icon" onClick={toggleSidebar}><Menu size={28} /></div>
       </motion.nav>
@@ -185,7 +190,7 @@ function App() {
           )
         })}
       </main>
-      <FloatingControls /> {/* Add FloatingControls here */}
+      <FloatingControls theme={theme} toggleTheme={toggleTheme} />
       <Footer />
     </div>
   );

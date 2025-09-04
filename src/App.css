@@ -1,23 +1,8 @@
 /* --- Font Import --- */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
-/* --- Root Variables & Base Styles --- */
-:root {
-  --font-family: 'IBM Plex Sans Arabic', sans-serif;
-  --primary-color: #1a365d; 
-  --secondary-color: #2a69ac; 
-  --accent-color: #319795; 
-  --background-color: #eef2f7; 
-  --text-color: #2d3748;
-  --header-text-color: #ffffff;
-  --card-bg: #ffffff;
-  --highlight-bg: #ebf8ff; 
-  --table-border-color: #e2e8f0;
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-}
-
 * { box-sizing: border-box; scroll-behavior: smooth; }
-body { margin: 0; font-family: var(--font-family); direction: rtl; background-color: var(--background-color); color: var(--text-color); line-height: 1.8; }
+body { margin: 0; font-family: 'IBM Plex Sans Arabic', sans-serif; direction: rtl; background-color: var(--background-color); color: var(--text-color); line-height: 1.8; }
 
 /* --- General Layout & Typography --- */
 .main-content { 
@@ -25,25 +10,23 @@ body { margin: 0; font-family: var(--font-family); direction: rtl; background-co
   display: flex; 
   flex-direction: column; 
   align-items: center; 
-  width: 100%; /* Ensure main-content takes full width */
+  width: 100%;
 }
 .page-card { 
-  background: var(--card-bg); 
+  background: var(--card-background);
   border-radius: 12px; 
-  box-shadow: var(--shadow-sm); 
+  box-shadow: 0 4px 6px -1px var(--shadow-color);
   margin-bottom: 2rem; 
   width: 90%; 
   max-width: 880px; 
   padding: 3rem 3.5rem; 
   position: relative; 
   z-index: 1; 
-  margin-left: auto; /* Force centering */
-  margin-right: auto; /* Force centering */
-  /* Remove text-align: right if present and conflicting with centering */
-  text-align: initial; /* Reset text alignment to default for card content */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: initial;
 }
 
-/* When a role group inside a page-card is hovered, elevate the entire page-card */
 .page-card:has(.role-group-wrapper:hover) {
   z-index: 20;
 }
@@ -58,65 +41,65 @@ body { margin: 0; font-family: var(--font-family); direction: rtl; background-co
   color: var(--primary-color); 
   margin-top: 0; 
   margin-bottom: 2rem; 
-  width: 100%; /* Ensure title also takes full width to allow centering */
+  width: 100%;
 }
-.title-icon { color: var(--secondary-color); width: 40px; height: 40px; }
-.section-content { font-size: 1.1rem; line-height: 1.9; font-weight: 400; color: #4a5568; }
+.title-icon { color: var(--primary-hover); width: 40px; height: 40px; }
+.section-content { font-size: 1.1rem; line-height: 1.9; font-weight: 400; }
 
 /* --- Special Section Card Styles --- */
 .special-section-card {
     padding: 2rem 1.5rem;
-    text-align: initial; /* Reset text alignment for special cards */
+    text-align: initial;
 }
 
 /* --- Navbar, Sidebar --- */
-.navbar { position: fixed; top: 0; left: 0; width: 100%; padding: 0.75rem 1.5rem; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.2); z-index: 1000; display: flex; justify-content: flex-end; align-items: center; }
+.navbar { position: fixed; top: 0; left: 0; width: 100%; padding: 0.75rem 1.5rem; background: var(--navbar-background); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); z-index: 1000; display: flex; justify-content: flex-end; align-items: center; }
 .menu-icon { cursor: pointer; color: var(--primary-color); padding: 0.5rem; border-radius: 8px; }
-.sidebar { position: fixed; top: 0; right: -320px; width: 300px; height: 100%; background-color: var(--card-bg); z-index: 1002; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: var(--shadow-md); display: flex; flex-direction: column; }
+.sidebar { position: fixed; top: 0; right: -320px; width: 300px; height: 100%; background-color: var(--sidebar-background); z-index: 1002; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 4px 6px -1px var(--shadow-color); display: flex; flex-direction: column; }
 .sidebar.open { right: 0; }
-.sidebar-header { display: flex; justify-content: flex-end; padding: 0.5rem 1rem; border-bottom: 1px solid #e2e8f0; }
+.sidebar-header { display: flex; justify-content: flex-end; padding: 0.5rem 1rem; border-bottom: 1px solid var(--border-color); }
 .close-btn { background: none; border: none; cursor: pointer; padding: 0.5rem; color: var(--text-color); }
 .sidebar-links { list-style: none; padding: 0; margin: 0.5rem 0; overflow-y: auto; }
 .sidebar-links li { color: var(--text-color); padding: 0.85rem 1.5rem; cursor: pointer; display: flex; align-items: center; gap: 1rem; font-weight: 500; border-right: 4px solid transparent; }
-.sidebar-links li:not(.sidebar-divider):hover { background-color: #f7fafc; }
-.sidebar-links li.active-link { color: var(--primary-color); background-color: var(--highlight-bg); border-right-color: var(--secondary-color); font-weight: 600; }
-.sidebar-links .link-icon { color: var(--secondary-color); }
+.sidebar-links li:not(.sidebar-divider):hover { background-color: var(--background-color); }
+.sidebar-links li.active-link { color: var(--primary-color); background-color: var(--background-color); border-right-color: var(--primary-hover); font-weight: 600; }
+.sidebar-links .link-icon { color: var(--primary-hover); }
 
 /* --- Sidebar Divider FIX --- */
 .sidebar-divider {
-  height: 1px !important; /* The line itself */
-  padding: 0 !important; /* Override default li padding */
-  margin: 0.75rem 1.5rem !important; /* Give it vertical and horizontal margin */
-  background-color: var(--table-border-color);
-  border: none !important; /* Remove the right border */
-  cursor: default !important; /* No pointer cursor */
+  height: 1px !important;
+  padding: 0 !important;
+  margin: 0.75rem 1.5rem !important;
+  background-color: var(--border-color);
+  border: none !important;
+  cursor: default !important;
 }
 
 .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); z-index: 1001; }
 
 /* --- Intro Section Styles --- */
-.highlight-box { background-color: var(--highlight-bg); border-right: 4px solid var(--secondary-color); padding: 1.5rem 2rem; margin-bottom: 2rem; border-radius: 8px; }
+.highlight-box { background-color: var(--card-background); border-right: 4px solid var(--primary-hover); padding: 1.5rem 2rem; margin-bottom: 2rem; border-radius: 8px; }
 .highlight-box p { margin: 0; font-size: 1.15rem; font-weight: 500; color: var(--primary-color); }
 .bullet-points-list { list-style: none; padding: 0; margin: 0; }
 .bullet-point-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; font-size: 1.1rem; }
 .bullet-icon { flex-shrink: 0; color: var(--accent-color); margin-top: 2px; }
 
 /* --- Summary Table Styles --- */
-.table-container { border: 1px solid var(--table-border-color); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm); }
+.table-container { border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px var(--shadow-color); }
 .summary-table { width: 100%; border-collapse: collapse; }
-.summary-table td { padding: 1.25rem 1.5rem; text-align: right; vertical-align: top; border-bottom: 1px solid var(--table-border-color); }
+.summary-table td { padding: 1.25rem 1.5rem; text-align: right; vertical-align: top; border-bottom: 1px solid var(--border-color); }
 .summary-table tr:last-child td { border-bottom: none; }
-.summary-table tr:nth-child(even) { background-color: #f7fafc; }
+.summary-table tr:nth-child(even) { background-color: var(--background-color); }
 .summary-table td:first-child { font-weight: 600; color: var(--primary-color); width: 25%; white-space: nowrap; }
-.summary-table td:last-child { line-height: 1.9; color: #4a5568; }
+.summary-table td:last-child { line-height: 1.9; }
 
 /* --- Responsive & Print Styles --- */
 @media (max-width: 768px) {
   .page-card { padding: 2.5rem; }
-  .section-title { font-size: 1.75rem; justify-content: center; /* Ensure centering on mobile */ }
-  .summary-table tr { display: flex; flex-direction: column; margin-bottom: 1rem; border: 1px solid var(--table-border-color); border-radius: 8px; }
-  .summary-table td { width: 100% !important; border-bottom: 1px solid var(--table-border-color); }
-  .summary-table td:first-child { background-color: #f7fafc; border-bottom: 1px solid var(--table-border-color); }
+  .section-title { font-size: 1.75rem; justify-content: center; }
+  .summary-table tr { display: flex; flex-direction: column; margin-bottom: 1rem; border: 1px solid var(--border-color); border-radius: 8px; }
+  .summary-table td { width: 100% !important; border-bottom: 1px solid var(--border-color); }
+  .summary-table td:first-child { background-color: var(--background-color); border-bottom: 1px solid var(--border-color); }
   .summary-table td:last-child { border-bottom: none; }
   .table-container { border: none; box-shadow: none; }
 }
